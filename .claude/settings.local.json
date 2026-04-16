@@ -45,7 +45,21 @@
       "WebFetch(domain:www.prodigi.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:postman.prodigi.com)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(sshpass -V)",
+      "Bash(choco install *)",
+      "Bash(apt-get install *)",
+      "Bash(winget install *)",
+      "Bash(SSHPASS=\"5ZTMJvnLMAbS6\" sshpass *)",
+      "Bash(export PATH=\"$PATH:/c/Users/bonne/AppData/Local/Microsoft/WinGet/Packages/xhcoding.sshpass-win32_Microsoft.Winget.Source_8wekyb3d8bbwe\")",
+      "Bash(sshpass -p \"5ZTMJvnLMAbS6\" ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password root@77.68.97.196 \"echo ok\")",
+      "Bash(git add *)",
+      "Bash(git reset *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(curl *)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)"
     ]
   }
 }
