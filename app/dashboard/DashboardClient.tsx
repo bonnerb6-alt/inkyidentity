@@ -46,6 +46,7 @@ export default function DashboardClient({
   const [profileForm, setProfileForm] = useState({
     username: user.username,
     bio: user.bio,
+    avatar_url: user.avatar_url || '',
     whatsapp_number: user.whatsapp_number || '',
     whatsapp_enabled: !!user.whatsapp_enabled,
   });
@@ -114,6 +115,27 @@ export default function DashboardClient({
       setLinks(links.map(l => l.id === id ? data.link : l));
       setEditingId(null);
     }
+  }
+
+  function handleAvatarFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const size = 200;
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d')!;
+        const scale = Math.max(size / img.width, size / img.height);
+        const w = img.width * scale, h = img.height * scale;
+        ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+        setProfileForm(f => ({ ...f, avatar_url: canvas.toDataURL('image/jpeg', 0.85) }));
+      };
+      img.src = ev.target?.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   async function saveProfile(e: React.FormEvent) {
@@ -396,9 +418,65 @@ export default function DashboardClient({
         {/* PROFILE TAB */}
         {tab === 'profile' && (
           <div style={{ maxWidth: '520px' }}>
-            <div style={{ ...cardStyle, padding: '32px' }}>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '24px' }}>Edit profile</h2>
-              <form onSubmit={saveProfile}>
+            <form onSubmit={saveProfile}>
+
+              {/* Photo upload */}
+              <div style={{ ...cardStyle, padding: '24px', marginBottom: '16px' }}>
+                <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '20px' }}>Profile photo</h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                  {/* Avatar preview */}
+                  <div style={{
+                    width: '80px', height: '80px', borderRadius: '50%', flexShrink: 0,
+                    background: profileForm.avatar_url ? 'transparent' : 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    overflow: 'hidden', border: '2px solid #2a2a2a',
+                    fontSize: '28px', fontWeight: 700, color: 'white',
+                  }}>
+                    {profileForm.avatar_url
+                      // eslint-disable-next-line @next/next/no-img-element
+                      ? <img src={profileForm.avatar_url} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      : user.username[0].toUpperCase()
+                    }
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <label style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '8px',
+                      background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: '8px',
+                      padding: '9px 16px', cursor: 'pointer', fontSize: '0.875rem',
+                      color: '#d1d5db', fontWeight: 500, marginBottom: '8px',
+                      transition: 'border-color 0.2s',
+                    }}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                        <path d="M2 11V13H14V11M8 2V10M5 5L8 2L11 5" />
+                      </svg>
+                      Upload photo
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleAvatarFile}
+                        style={{ display: 'none' }}
+                      />
+                    </label>
+                    {profileForm.avatar_url && (
+                      <button
+                        type="button"
+                        onClick={() => setProfileForm(f => ({ ...f, avatar_url: '' }))}
+                        style={{
+                          display: 'block', background: 'transparent', border: 'none',
+                          color: '#6b7280', fontSize: '0.78rem', cursor: 'pointer', padding: 0,
+                        }}
+                      >
+                        Remove photo
+                      </button>
+                    )}
+                    <p style={{ fontSize: '0.75rem', color: '#4b5563', marginTop: '4px' }}>JPG, PNG or GIF · Auto-cropped to square</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Username & Bio */}
+              <div style={{ ...cardStyle, padding: '24px', marginBottom: '16px' }}>
+                <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '20px' }}>Profile info</h2>
                 <div style={{ marginBottom: '16px' }}>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
                     Username
@@ -414,7 +492,7 @@ export default function DashboardClient({
                     />
                   </div>
                 </div>
-                <div style={{ marginBottom: '24px' }}>
+                <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
                     Bio
                   </label>
@@ -430,61 +508,45 @@ export default function DashboardClient({
                     {profileForm.bio.length}/200
                   </p>
                 </div>
-                <button
-                  type="submit"
-                  className="btn-primary"
-                  disabled={saving}
-                  style={{ opacity: saving ? 0.7 : 1 }}
-                >
-                  {saving ? 'Saving…' : 'Save changes'}
-                </button>
-              </form>
-            </div>
-
-            {/* WhatsApp section */}
-            <div style={{ ...cardStyle, padding: '24px', marginTop: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  {/* WhatsApp icon */}
-                  <div style={{
-                    width: '32px', height: '32px', borderRadius: '8px',
-                    background: 'rgba(37, 211, 102, 0.15)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="#25D366">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>WhatsApp button</div>
-                    <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>
-                      Show a &quot;Message me&quot; button on your profile
-                    </div>
-                  </div>
-                </div>
-                {/* Toggle */}
-                <button
-                  type="button"
-                  onClick={() => setProfileForm(f => ({ ...f, whatsapp_enabled: !f.whatsapp_enabled }))}
-                  style={{
-                    width: '44px', height: '24px', borderRadius: '12px', border: 'none',
-                    cursor: 'pointer', position: 'relative', flexShrink: 0,
-                    background: profileForm.whatsapp_enabled ? '#25D366' : '#2a2a2a',
-                    transition: 'background 0.2s',
-                  }}
-                >
-                  <span style={{
-                    position: 'absolute', top: '3px',
-                    left: profileForm.whatsapp_enabled ? '23px' : '3px',
-                    width: '18px', height: '18px', borderRadius: '50%',
-                    background: 'white', transition: 'left 0.2s',
-                    display: 'block',
-                  }} />
-                </button>
               </div>
 
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                <div style={{ flex: 1 }}>
+              {/* WhatsApp */}
+              <div style={{ ...cardStyle, padding: '24px', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '32px', height: '32px', borderRadius: '8px',
+                      background: 'rgba(37, 211, 102, 0.15)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>WhatsApp button</div>
+                      <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Show a &quot;Message me&quot; button on your profile</div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setProfileForm(f => ({ ...f, whatsapp_enabled: !f.whatsapp_enabled }))}
+                    style={{
+                      width: '44px', height: '24px', borderRadius: '12px', border: 'none',
+                      cursor: 'pointer', position: 'relative', flexShrink: 0,
+                      background: profileForm.whatsapp_enabled ? '#25D366' : '#2a2a2a',
+                      transition: 'background 0.2s',
+                    }}
+                  >
+                    <span style={{
+                      position: 'absolute', top: '3px',
+                      left: profileForm.whatsapp_enabled ? '23px' : '3px',
+                      width: '18px', height: '18px', borderRadius: '50%',
+                      background: 'white', transition: 'left 0.2s', display: 'block',
+                    }} />
+                  </button>
+                </div>
+                <div>
                   <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.8rem', fontWeight: 500, color: '#d1d5db' }}>
                     WhatsApp number
                   </label>
@@ -499,20 +561,32 @@ export default function DashboardClient({
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div style={{ ...cardStyle, padding: '24px', marginTop: '16px' }}>
-              <h3 style={{ fontSize: '0.9rem', fontWeight: 600, marginBottom: '8px' }}>Your profile link</h3>
-              <div style={{
-                background: '#0d0d0d', border: '1px solid #2a2a2a', borderRadius: '8px',
-                padding: '10px 14px', fontFamily: 'monospace', fontSize: '0.85rem', color: '#a78bfa',
-              }}>
-                /u/{user.display_id}
+              {/* Profile link */}
+              <div style={{ ...cardStyle, padding: '20px', marginBottom: '24px' }}>
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '8px', color: '#9ca3af' }}>Your profile link</h3>
+                <div style={{
+                  background: '#0d0d0d', border: '1px solid #2a2a2a', borderRadius: '8px',
+                  padding: '10px 14px', fontFamily: 'monospace', fontSize: '0.85rem', color: '#a78bfa',
+                }}>
+                  /u/{user.display_id}
+                </div>
+                <p style={{ fontSize: '0.75rem', color: '#4b5563', marginTop: '8px' }}>
+                  This ID never changes. Your username is an alias — update it freely.
+                </p>
               </div>
-              <p style={{ fontSize: '0.75rem', color: '#4b5563', marginTop: '8px' }}>
-                This permanent ID never changes. Your username is an alias — feel free to update it.
-              </p>
-            </div>
+
+              {/* Save button at bottom */}
+              <button
+                type="submit"
+                className="btn-primary"
+                disabled={saving}
+                style={{ width: '100%', justifyContent: 'center', fontSize: '1rem', padding: '14px', opacity: saving ? 0.7 : 1 }}
+              >
+                {saving ? 'Saving…' : 'Save changes'}
+              </button>
+
+            </form>
           </div>
         )}
 
