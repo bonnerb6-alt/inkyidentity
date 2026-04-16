@@ -54,7 +54,7 @@ export async function GET(
     .png()
     .toBuffer();
 
-  return new NextResponse(buffer, {
+  return new NextResponse(buffer as unknown as BodyInit, {
     headers: {
       'Content-Type': 'image/png',
       'Cache-Control': 'public, max-age=86400',
