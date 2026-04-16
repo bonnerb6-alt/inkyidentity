@@ -62,7 +62,9 @@
       "Bash(gh api *)",
       "Read(//c/Users/bonne/.ssh/**)",
       "Bash(npm run *)",
-      "Bash(ssh *)"
+      "Bash(ssh *)",
+      "Bash(cat C:/xampp/htdocs/inkyidentity/scripts/*.sh)",
+      "Bash(ls *)"
     ]
   }
 }
