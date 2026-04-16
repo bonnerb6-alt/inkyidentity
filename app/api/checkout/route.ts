@@ -3,21 +3,6 @@ import stripe from '@/lib/stripe';
 import getDb from '@/lib/db';
 import { getSession } from '@/lib/auth';
 
-const PRICES: Record<string, number> = {
-  // tattoo sizes (pence)
-  '5x5cm': 1200, '8x8cm': 1600, '12x12cm': 2200,
-  // mug
-  'one-size': 1800,
-  // t-shirt sizes (XS–XXL)
-  'XS': 2400, 'S': 2400, 'M': 2400, 'L': 2400, 'XL': 2400, 'XXL': 2600,
-};
-
-const PRODUCT_NAMES: Record<string, string> = {
-  tattoo: 'QR Tattoo Sticker',
-  mug: 'Ceramic Mug with QR Code',
-  tshirt: 'T-Shirt with QR Code',
-};
-
 export async function POST(req: NextRequest) {
   const session = await getSession();
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -28,11 +13,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  const unitPrice = PRICES[size];
-  if (!unitPrice) return NextResponse.json({ error: `Unknown size: ${size}` }, { status: 400 });
-
   const qty = parseInt(quantity) || 1;
   const db = getDb();
+
+  const optionRow = db.prepare(
+    'SELECT po.price_pence, p.name FROM product_options po JOIN products p ON p.id = po.product_id WHERE po.id = ? AND po.product_id = ? AND p.enabled = 1'
+  ).get(size, product_type) as { price_pence: number; name: string } | undefined;
+  if (!optionRow) return NextResponse.json({ error: `Unknown product or size` }, { status: 400 });
+
+  const unitPrice = optionRow.price_pence;
 
   // Save a pending order so we have an ID to reference in Stripe metadata
   const result = db.prepare(`
@@ -42,7 +31,7 @@ export async function POST(req: NextRequest) {
 
   const orderId = result.lastInsertRowid as number;
 
-  const productName = PRODUCT_NAMES[product_type] || 'InkyIdentity Product';
+  const productName = optionRow.name || 'InkyIdentity Product';
   const variantDesc = variant ? ` — ${size} / ${variant}` : ` — ${size}`;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001';
 

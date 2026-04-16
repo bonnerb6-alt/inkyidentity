@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
 import getDb from '@/lib/db';
 import AdminClient from './AdminClient';
+import type { AdminProduct, AdminProductOption, AdminProductColour } from './AdminClient';
 
 export const metadata = { title: 'Admin — InkyIdentity' };
 
@@ -41,11 +42,18 @@ export default async function AdminPage() {
     pendingOrders: orders.filter(o => o.status === 'pending').length,
   };
 
+  const products = db.prepare('SELECT * FROM products ORDER BY sort_order ASC, id ASC').all() as AdminProduct[];
+  const productOptions = db.prepare('SELECT * FROM product_options ORDER BY sort_order ASC').all() as AdminProductOption[];
+  const productColours = db.prepare('SELECT * FROM product_colours').all() as AdminProductColour[];
+
   return <AdminClient
     initialUsers={users}
     initialOrders={orders}
     stats={stats}
     currentUserId={session.userId}
+    initialProducts={products}
+    initialProductOptions={productOptions}
+    initialProductColours={productColours}
   />;
 }
 

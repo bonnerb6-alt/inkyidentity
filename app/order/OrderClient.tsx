@@ -2,113 +2,99 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-// ─── Product catalogue ────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-const PRODUCTS = {
-  tattoo: {
-    id: 'tattoo',
-    name: 'QR Tattoo Sticker',
-    tagline: 'Permanent ink. Dynamic profile.',
-    icon: (
-      <svg viewBox="0 0 40 40" width="36" height="36">
-        <rect x="2" y="2" width="12" height="12" rx="1.5" fill="currentColor" />
-        <rect x="4" y="4" width="8" height="8" rx="0.5" fill="#111" />
-        <rect x="5.5" y="5.5" width="5" height="5" rx="0.5" fill="currentColor" />
-        <rect x="26" y="2" width="12" height="12" rx="1.5" fill="currentColor" />
-        <rect x="28" y="4" width="8" height="8" rx="0.5" fill="#111" />
-        <rect x="29.5" y="5.5" width="5" height="5" rx="0.5" fill="currentColor" />
-        <rect x="2" y="26" width="12" height="12" rx="1.5" fill="currentColor" />
-        <rect x="4" y="28" width="8" height="8" rx="0.5" fill="#111" />
-        <rect x="5.5" y="29.5" width="5" height="5" rx="0.5" fill="currentColor" />
-        <rect x="16" y="2" width="3" height="3" fill="currentColor" />
-        <rect x="21" y="5" width="3" height="3" fill="currentColor" />
-        <rect x="16" y="9" width="3" height="3" fill="currentColor" />
-        <rect x="21" y="16" width="3" height="3" fill="currentColor" />
-        <rect x="16" y="21" width="3" height="3" fill="currentColor" />
-        <rect x="26" y="16" width="3" height="3" fill="currentColor" />
-        <rect x="21" y="26" width="3" height="3" fill="currentColor" />
-        <rect x="16" y="29" width="3" height="3" fill="currentColor" />
-        <rect x="29" y="21" width="3" height="3" fill="currentColor" />
-      </svg>
-    ),
-    options: [
-      { id: '5x5cm',   label: '5 × 5 cm',   detail: 'Wrist / ankle',        price: 12 },
-      { id: '8x8cm',   label: '8 × 8 cm',   detail: 'Forearm / shoulder',   price: 16 },
-      { id: '12x12cm', label: '12 × 12 cm', detail: 'Back / chest',         price: 22 },
-    ],
-    optionLabel: 'Size',
-    hasColour: false,
-    colours: [],
-  },
-  mug: {
-    id: 'mug',
-    name: 'Ceramic Mug',
-    tagline: 'QR printed on an 11oz ceramic mug.',
-    icon: (
-      <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
-        <rect x="6" y="10" width="22" height="22" rx="3" fill="currentColor" />
-        <path d="M28 16 Q36 16 36 22 Q36 28 28 28" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <rect x="10" y="14" width="10" height="10" rx="1" fill="#111" opacity="0.3" />
-        <rect x="11.5" y="15.5" width="7" height="7" rx="0.5" fill="currentColor" opacity="0.35" />
-        <rect x="6" y="32" width="22" height="2.5" rx="1.25" fill="currentColor" opacity="0.5" />
-      </svg>
-    ),
-    options: [
-      { id: 'one-size', label: '11oz Mug', detail: 'Standard ceramic, dishwasher safe', price: 18 },
-    ],
-    optionLabel: 'Size',
-    hasColour: false,
-    colours: [],
-  },
-  tshirt: {
-    id: 'tshirt',
-    name: 'T-Shirt',
-    tagline: 'QR printed on the left chest.',
-    icon: (
-      <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
-        <path d="M14 6 L6 12 L10 16 L10 34 L30 34 L30 16 L34 12 L26 6 C26 6 24 10 20 10 C16 10 14 6 14 6Z" fill="currentColor" />
-        <path d="M14 6 L6 12 L10 16 L10 12 Z" fill="currentColor" opacity="0.6" />
-        <path d="M26 6 L34 12 L30 16 L30 12 Z" fill="currentColor" opacity="0.6" />
-        <rect x="15" y="18" width="10" height="10" rx="1" fill="#111" opacity="0.25" />
-        <rect x="16.5" y="19.5" width="7" height="7" rx="0.5" fill="currentColor" opacity="0.3" />
-      </svg>
-    ),
-    options: [
-      { id: 'XS', label: 'XS', detail: 'Chest 32–34"',  price: 24 },
-      { id: 'S',  label: 'S',  detail: 'Chest 35–37"',  price: 24 },
-      { id: 'M',  label: 'M',  detail: 'Chest 38–40"',  price: 24 },
-      { id: 'L',  label: 'L',  detail: 'Chest 41–43"',  price: 24 },
-      { id: 'XL', label: 'XL', detail: 'Chest 44–46"',  price: 24 },
-      { id: 'XXL',label: 'XXL',detail: 'Chest 47–49"',  price: 26 },
-    ],
-    optionLabel: 'Size',
-    hasColour: true,
-    colours: [
-      { id: 'black', label: 'Black', hex: '#111111' },
-      { id: 'white', label: 'White', hex: '#f9fafb' },
-      { id: 'navy',  label: 'Navy',  hex: '#1e3a5f' },
-      { id: 'grey',  label: 'Grey',  hex: '#6b7280' },
-    ],
-  },
-} as const;
+export interface ClientProduct {
+  id: string;
+  name: string;
+  tagline: string;
+  icon_type: string;   // 'tattoo' | 'mug' | 'tshirt' | arbitrary emoji
+  option_label: string;
+  has_colour: boolean;
+  options: Array<{ id: string; label: string; detail: string; price: number }>;
+  colours: Array<{ id: string; label: string; hex: string }>;
+}
 
-type ProductId = keyof typeof PRODUCTS;
+// ─── Built-in SVG icons ───────────────────────────────────────────────────────
+
+function TattooIcon() {
+  return (
+    <svg viewBox="0 0 40 40" width="36" height="36">
+      <rect x="2" y="2" width="12" height="12" rx="1.5" fill="currentColor" />
+      <rect x="4" y="4" width="8" height="8" rx="0.5" fill="#111" />
+      <rect x="5.5" y="5.5" width="5" height="5" rx="0.5" fill="currentColor" />
+      <rect x="26" y="2" width="12" height="12" rx="1.5" fill="currentColor" />
+      <rect x="28" y="4" width="8" height="8" rx="0.5" fill="#111" />
+      <rect x="29.5" y="5.5" width="5" height="5" rx="0.5" fill="currentColor" />
+      <rect x="2" y="26" width="12" height="12" rx="1.5" fill="currentColor" />
+      <rect x="4" y="28" width="8" height="8" rx="0.5" fill="#111" />
+      <rect x="5.5" y="29.5" width="5" height="5" rx="0.5" fill="currentColor" />
+      <rect x="16" y="2" width="3" height="3" fill="currentColor" />
+      <rect x="21" y="5" width="3" height="3" fill="currentColor" />
+      <rect x="16" y="9" width="3" height="3" fill="currentColor" />
+      <rect x="21" y="16" width="3" height="3" fill="currentColor" />
+      <rect x="16" y="21" width="3" height="3" fill="currentColor" />
+      <rect x="26" y="16" width="3" height="3" fill="currentColor" />
+      <rect x="21" y="26" width="3" height="3" fill="currentColor" />
+      <rect x="16" y="29" width="3" height="3" fill="currentColor" />
+      <rect x="29" y="21" width="3" height="3" fill="currentColor" />
+    </svg>
+  );
+}
+
+function MugIcon() {
+  return (
+    <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+      <rect x="6" y="10" width="22" height="22" rx="3" fill="currentColor" />
+      <path d="M28 16 Q36 16 36 22 Q36 28 28 28" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      <rect x="10" y="14" width="10" height="10" rx="1" fill="#111" opacity="0.3" />
+      <rect x="11.5" y="15.5" width="7" height="7" rx="0.5" fill="currentColor" opacity="0.35" />
+      <rect x="6" y="32" width="22" height="2.5" rx="1.25" fill="currentColor" opacity="0.5" />
+    </svg>
+  );
+}
+
+function TshirtIcon() {
+  return (
+    <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+      <path d="M14 6 L6 12 L10 16 L10 34 L30 34 L30 16 L34 12 L26 6 C26 6 24 10 20 10 C16 10 14 6 14 6Z" fill="currentColor" />
+      <path d="M14 6 L6 12 L10 16 L10 12 Z" fill="currentColor" opacity="0.6" />
+      <path d="M26 6 L34 12 L30 16 L30 12 Z" fill="currentColor" opacity="0.6" />
+      <rect x="15" y="18" width="10" height="10" rx="1" fill="#111" opacity="0.25" />
+      <rect x="16.5" y="19.5" width="7" height="7" rx="0.5" fill="currentColor" opacity="0.3" />
+    </svg>
+  );
+}
+
+function ProductIcon({ iconType }: { iconType: string }) {
+  if (iconType === 'tattoo') return <TattooIcon />;
+  if (iconType === 'mug')    return <MugIcon />;
+  if (iconType === 'tshirt') return <TshirtIcon />;
+  // Custom product — render emoji / text
+  return <span style={{ fontSize: '28px', lineHeight: 1 }}>{iconType}</span>;
+}
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function OrderClient({ displayId }: { displayId: string }) {
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [productId, setProductId] = useState<ProductId>('tattoo');
-  const [size, setSize] = useState('');
-  const [colour, setColour] = useState('');
+export default function OrderClient({
+  displayId,
+  products,
+}: {
+  displayId: string;
+  products: ClientProduct[];
+}) {
+  const [step, setStep]       = useState<1 | 2 | 3 | 4>(1);
+  const [productId, setProductId] = useState<string>(products[0]?.id ?? '');
+  const [size, setSize]       = useState('');
+  const [colour, setColour]   = useState('');
   const [quantity, setQuantity] = useState('1');
-  const [addr, setAddr] = useState({ line1: '', line2: '', city: '', postcode: '', country: 'GB' });
+  const [addr, setAddr]       = useState({ line1: '', line2: '', city: '', postcode: '', country: 'GB' });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError]     = useState('');
 
-  const product = PRODUCTS[productId];
-  const selectedOption = product.options.find(o => o.id === size) ?? product.options[0];
-  const unitPrice = selectedOption.price;
+  const product = products.find(p => p.id === productId) ?? products[0];
+  const selectedOption = product?.options.find(o => o.id === size) ?? product?.options[0];
+  const unitPrice = selectedOption?.price ?? 0;
   const total = unitPrice * parseInt(quantity || '1');
 
   async function submitOrder() {
@@ -120,7 +106,7 @@ export default function OrderClient({ displayId }: { displayId: string }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           product_type: productId,
-          size: size || product.options[0].id,
+          size: size || product?.options[0]?.id,
           variant: colour,
           quantity: parseInt(quantity),
           address_line1: addr.line1,
@@ -132,7 +118,6 @@ export default function OrderClient({ displayId }: { displayId: string }) {
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error); setLoading(false); return; }
-      // Redirect to Stripe Checkout
       window.location.href = data.url;
     } catch {
       setError('Network error. Please try again.');
@@ -140,13 +125,13 @@ export default function OrderClient({ displayId }: { displayId: string }) {
     }
   }
 
-  function pickProduct(id: ProductId) {
+  function pickProduct(id: string) {
+    const p = products.find(x => x.id === id)!;
     setProductId(id);
-    setSize(PRODUCTS[id].options[0].id);
-    setColour(PRODUCTS[id].hasColour ? PRODUCTS[id].colours[0].id : '');
+    setSize(p.options[0]?.id ?? '');
+    setColour(p.has_colour ? p.colours[0]?.id ?? '' : '');
   }
 
-  // ── shared styles
   const card = (active: boolean): React.CSSProperties => ({
     background: active ? 'rgba(124, 58, 237, 0.08)' : '#111',
     border: `2px solid ${active ? '#7c3aed' : '#1f1f1f'}`,
@@ -162,6 +147,14 @@ export default function OrderClient({ displayId }: { displayId: string }) {
   } as React.CSSProperties);
 
   const STEPS = ['Product', 'Options', 'Delivery'];
+
+  if (!product) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#080808', color: '#f9fafb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ color: '#6b7280' }}>No products are currently available.</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: '#080808', color: '#f9fafb' }}>
@@ -213,10 +206,10 @@ export default function OrderClient({ displayId }: { displayId: string }) {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
-              {(Object.values(PRODUCTS) as typeof PRODUCTS[ProductId][]).map(p => (
+              {products.map(p => (
                 <button
                   key={p.id}
-                  onClick={() => pickProduct(p.id as ProductId)}
+                  onClick={() => pickProduct(p.id)}
                   style={{
                     ...card(productId === p.id),
                     padding: '20px 24px',
@@ -231,7 +224,7 @@ export default function OrderClient({ displayId }: { displayId: string }) {
                     color: productId === p.id ? '#a78bfa' : '#6b7280',
                     transition: 'all 0.15s',
                   }}>
-                    {p.icon}
+                    <ProductIcon iconType={p.icon_type} />
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: '4px' }}>{p.name}</div>
@@ -241,7 +234,7 @@ export default function OrderClient({ displayId }: { displayId: string }) {
                     fontSize: '1.1rem', fontWeight: 700,
                     color: productId === p.id ? '#a78bfa' : '#6b7280',
                   }}>
-                    from £{Math.min(...p.options.map(o => o.price))}
+                    from £{Math.min(...p.options.map(o => o.price)).toFixed(2).replace(/\.00$/, '')}
                   </div>
                 </button>
               ))}
@@ -265,13 +258,13 @@ export default function OrderClient({ displayId }: { displayId: string }) {
             </h1>
             <p style={{ color: '#6b7280', marginBottom: '28px' }}>{product.tagline}</p>
 
-            {/* Size */}
+            {/* Size / option */}
             <div style={{ marginBottom: '24px' }}>
               <label style={{ display: 'block', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 600, color: '#d1d5db' }}>
-                {product.optionLabel}
+                {product.option_label}
               </label>
-              {productId === 'tshirt' && product.options.length > 2 ? (
-                // T-shirt: pill grid
+              {product.options.length > 3 ? (
+                // Many options: pill grid
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                   {product.options.map(o => (
                     <button
@@ -286,12 +279,12 @@ export default function OrderClient({ displayId }: { displayId: string }) {
                       }}
                     >
                       <div>{o.label}</div>
-                      <div style={{ fontSize: '0.7rem', color: '#6b7280', marginTop: '2px' }}>{o.detail}</div>
+                      {o.detail && <div style={{ fontSize: '0.7rem', color: '#6b7280', marginTop: '2px' }}>{o.detail}</div>}
                     </button>
                   ))}
                 </div>
               ) : (
-                // Tattoo / cap: vertical cards
+                // Few options: vertical cards
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {product.options.map(o => (
                     <button
@@ -306,9 +299,9 @@ export default function OrderClient({ displayId }: { displayId: string }) {
                     >
                       <div>
                         <div style={{ fontWeight: 600 }}>{o.label}</div>
-                        <div style={{ fontSize: '0.8rem', color: '#9ca3af' }}>{o.detail}</div>
+                        {o.detail && <div style={{ fontSize: '0.8rem', color: '#9ca3af' }}>{o.detail}</div>}
                       </div>
-                      <div style={{ fontWeight: 700, color: size === o.id ? '#a78bfa' : '#6b7280' }}>£{o.price}</div>
+                      <div style={{ fontWeight: 700, color: size === o.id ? '#a78bfa' : '#6b7280' }}>£{o.price.toFixed(2).replace(/\.00$/, '')}</div>
                     </button>
                   ))}
                 </div>
@@ -316,7 +309,7 @@ export default function OrderClient({ displayId }: { displayId: string }) {
             </div>
 
             {/* Colour picker */}
-            {product.hasColour && (
+            {product.has_colour && product.colours.length > 0 && (
               <div style={{ marginBottom: '24px' }}>
                 <label style={{ display: 'block', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 600, color: '#d1d5db' }}>
                   Colour
@@ -372,7 +365,7 @@ export default function OrderClient({ displayId }: { displayId: string }) {
               <span style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
                 {product.name}
                 {size ? ` — ${size}` : ''}
-                {colour ? ` / ${product.hasColour ? product.colours.find(c => c.id === colour)?.label : ''}` : ''}
+                {colour ? ` / ${product.colours.find(c => c.id === colour)?.label ?? colour}` : ''}
                 {` × ${quantity}`}
               </span>
               <span style={{ fontWeight: 700, color: '#a78bfa' }}>£{total.toFixed(2)}</span>
@@ -383,7 +376,7 @@ export default function OrderClient({ displayId }: { displayId: string }) {
               <button
                 className="btn-primary"
                 onClick={() => setStep(3)}
-                disabled={!size || (product.hasColour && !colour)}
+                disabled={!size || (product.has_colour && !colour)}
                 style={{ flex: 1, justifyContent: 'center', fontSize: '1rem', padding: '14px' }}
               >
                 Continue to delivery →
@@ -457,13 +450,13 @@ export default function OrderClient({ displayId }: { displayId: string }) {
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: '#a78bfa', flexShrink: 0,
                 }}>
-                  {product.icon}
+                  <ProductIcon iconType={product.icon_type} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{product.name}</div>
                   <div style={{ fontSize: '0.8rem', color: '#9ca3af' }}>
                     {size}
-                    {colour && product.hasColour && ` · ${product.colours.find(c => c.id === colour)?.label}`}
+                    {colour && product.has_colour && ` · ${product.colours.find(c => c.id === colour)?.label ?? colour}`}
                     {` · qty ${quantity}`}
                   </div>
                 </div>

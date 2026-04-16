@@ -19,40 +19,33 @@ const BASE_URL =
 
 const API_KEY = process.env.PRODIGI_API_KEY ?? '';
 
-// ─── Product → Prodigi SKU + print position map ──────────────────────────────
+// ─── SKU resolution ───────────────────────────────────────────────────────────
 
 interface ProductSpec {
   sku: string;
-  printLocation: string;  // Prodigi asset placement key
+  printLocation: string;
   copies: number;
 }
 
-// Update these SKUs once you've verified them in your Prodigi sandbox catalogue:
-// https://dashboard.prodigi.com/products
-// Tattoo size → Prodigi SKU
-const TATTOO_SKU: Record<string, string> = {
-  '5x5cm':   'GLOBAL-TATT-S',   // ~50x75mm
-  '8x8cm':   'GLOBAL-TATT-M',   // ~75x100mm
-  '12x12cm': 'GLOBAL-TATT-L',   // ~100x150mm
-};
+function resolveSpec(productType: string, size: string): ProductSpec {
+  const getDb = require('./db').default as () => import('better-sqlite3').Database;
+  const db = getDb();
 
-const PRODUCT_MAP: Record<string, (size: string, colour: string) => ProductSpec> = {
-  tattoo: (size, _colour) => ({
-    sku: TATTOO_SKU[size] ?? 'GLOBAL-TATT-M',
-    printLocation: 'default',
-    copies: 1,
-  }),
-  tshirt: (_size, _colour) => ({
-    sku: 'GLOBAL-TEE-GIL-64000',   // Gildan 64000 Softstyle
-    printLocation: 'left_chest',
-    copies: 1,
-  }),
-  mug: (_size, _colour) => ({
-    sku: 'GLOBAL-MUG',
-    printLocation: 'default',
-    copies: 1,
-  }),
-};
+  // Option-level SKU overrides the product-level SKU (useful for size-specific tattoo SKUs)
+  const optRow = db.prepare(
+    'SELECT prodigi_sku FROM product_options WHERE product_id = ? AND id = ?'
+  ).get(productType, size) as { prodigi_sku: string } | undefined;
+
+  const prodRow = db.prepare(
+    'SELECT prodigi_sku, prodigi_print_location FROM products WHERE id = ?'
+  ).get(productType) as { prodigi_sku: string; prodigi_print_location: string } | undefined;
+
+  const sku = optRow?.prodigi_sku || prodRow?.prodigi_sku || '';
+  const printLocation = prodRow?.prodigi_print_location || 'default';
+
+  if (!sku) throw new Error(`No Prodigi SKU configured for product "${productType}"`);
+  return { sku, printLocation, copies: 1 };
+}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -80,8 +73,7 @@ export interface ProdigiOrderInput {
 // ─── API call ────────────────────────────────────────────────────────────────
 
 export async function submitToProdigiAsync(input: ProdigiOrderInput): Promise<{ orderId: string }> {
-  const spec = PRODUCT_MAP[input.productType]?.(input.size, input.colour);
-  if (!spec) throw new Error(`Unknown product type: ${input.productType}`);
+  const spec = resolveSpec(input.productType, input.size);
 
   const body = {
     merchantReference: input.merchantReference,
