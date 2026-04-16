@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "git add -A && git commit -m \"update\" && git push && ssh root@77.68.97.196 \"cd /var/www/inkyidentity && git pull && npm run build && pm2 restart inkyidentity\""
+    "deploy": "git add -A && git commit -m \"update\" && git push && ssh root@77.68.97.196 \"cd /root/inkyidentity && git pull && npm run build && pm2 restart inkyidentity\""
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",

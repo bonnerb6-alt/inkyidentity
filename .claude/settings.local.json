@@ -61,7 +61,8 @@
       "Bash(gh repo *)",
       "Bash(gh api *)",
       "Read(//c/Users/bonne/.ssh/**)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(ssh *)"
     ]
   }
 }
