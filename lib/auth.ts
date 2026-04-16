@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'inkyidentity-dev-secret-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set');
 const COOKIE_NAME = 'ii_token';
 
 export interface TokenPayload {
@@ -41,11 +42,9 @@ export async function requireAdmin(): Promise<TokenPayload> {
 
 export function generateId(length = 8): string {
   const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
-  let id = '';
-  for (let i = 0; i < length; i++) {
-    id += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return id;
+  const array = new Uint32Array(length);
+  crypto.getRandomValues(array);
+  return Array.from(array, (n) => chars[n % chars.length]).join('');
 }
 
 export { COOKIE_NAME };
