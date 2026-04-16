@@ -7,31 +7,25 @@ export default async function Home() {
   return (
     <div style={{ background: '#080808', color: '#f9fafb', minHeight: '100vh', overflowX: 'hidden' }}>
 
-      {/* Nav */}
+      {/* ── Nav ── */}
       <nav style={{
-        borderBottom: '1px solid #1f1f1f',
-        padding: '0 24px',
-        height: '64px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        background: 'rgba(8,8,8,0.85)',
-        backdropFilter: 'blur(16px)',
+        padding: '0 32px', height: '64px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        position: 'sticky', top: 0, zIndex: 100,
+        background: 'rgba(8,8,8,0.8)', backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            width: '32px', height: '32px', borderRadius: '8px',
+            width: '34px', height: '34px', borderRadius: '9px',
             background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 700, fontSize: '16px',
-            boxShadow: '0 0 16px rgba(124,58,237,0.5)',
+            fontWeight: 800, fontSize: '17px', color: 'white',
+            boxShadow: '0 0 20px rgba(124,58,237,0.6)',
           }}>I</div>
           <span style={{ fontWeight: 700, fontSize: '18px', letterSpacing: '-0.02em' }}>InkyIdentity</span>
         </div>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           {session ? (
             <Link href="/dashboard" className="btn-primary" style={{ textDecoration: 'none' }}>Dashboard</Link>
           ) : (
@@ -43,544 +37,560 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px 80px', textAlign: 'center', position: 'relative' }}>
+      {/* ── Hero ── */}
+      <section style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
 
-        {/* Background orbs */}
-        <div className="animate-orb" style={{
-          position: 'absolute', top: '-60px', left: '10%',
-          width: '500px', height: '500px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)',
-          pointerEvents: 'none', zIndex: 0,
-        }} />
-        <div className="animate-orb" style={{
-          position: 'absolute', top: '100px', right: '5%',
-          width: '400px', height: '400px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(192,132,252,0.08) 0%, transparent 70%)',
-          pointerEvents: 'none', zIndex: 0,
-          animationDelay: '-4s',
-        }} />
-
-        {/* Decorative rotating ring */}
-        <div className="animate-spin-slow" style={{
-          position: 'absolute', top: '40px', right: '8%',
-          width: '120px', height: '120px',
-          border: '1px solid rgba(124,58,237,0.2)',
-          borderRadius: '50%',
-          pointerEvents: 'none', zIndex: 0,
-        }}>
+        {/* Mesh background */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <div style={{
-            position: 'absolute', top: '-3px', left: '50%', marginLeft: '-3px',
-            width: '6px', height: '6px', borderRadius: '50%',
-            background: '#7c3aed',
-          }} />
-        </div>
-        <div className="animate-spin-slow" style={{
-          position: 'absolute', bottom: '80px', left: '6%',
-          width: '80px', height: '80px',
-          border: '1px solid rgba(167,139,250,0.15)',
-          borderRadius: '50%',
-          pointerEvents: 'none', zIndex: 0,
-          animationDirection: 'reverse',
-          animationDuration: '18s',
-        }}>
-          <div style={{
-            position: 'absolute', top: '-2px', left: '50%', marginLeft: '-2px',
-            width: '4px', height: '4px', borderRadius: '50%',
-            background: '#a78bfa',
-          }} />
-        </div>
-
-        {/* Floating dots */}
-        {[
-          { top: '15%', left: '5%', size: 4, delay: '0s' },
-          { top: '35%', left: '2%', size: 3, delay: '1s' },
-          { top: '60%', left: '8%', size: 5, delay: '2s' },
-          { top: '20%', right: '4%', size: 3, delay: '0.5s' },
-          { top: '55%', right: '3%', size: 4, delay: '1.5s' },
-        ].map((dot, i) => (
-          <div key={i} className="animate-float" style={{
-            position: 'absolute',
-            top: dot.top,
-            left: (dot as { left?: string }).left,
-            right: (dot as { right?: string }).right,
-            width: `${dot.size}px`, height: `${dot.size}px`,
+            position: 'absolute', top: '-20%', left: '-10%',
+            width: '70vw', height: '70vw', maxWidth: '800px', maxHeight: '800px',
+            background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 65%)',
             borderRadius: '50%',
-            background: 'rgba(167,139,250,0.4)',
-            pointerEvents: 'none', zIndex: 0,
-            animationDelay: dot.delay,
-          }} />
-        ))}
-
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {/* Badge */}
-          <div className="animate-fade-in-up-1" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'rgba(124, 58, 237, 0.1)', border: '1px solid rgba(124, 58, 237, 0.3)',
-            borderRadius: '100px', padding: '6px 16px', marginBottom: '32px',
-            fontSize: '0.85rem', color: '#a78bfa',
-          }}>
-            <span className="animate-dot-pulse" style={{
-              width: '6px', height: '6px', borderRadius: '50%',
-              background: '#a78bfa', display: 'inline-block',
-            }} />
-            Now live — ink meets identity
-          </div>
-
-          <h1 className="animate-fade-in-up-2" style={{
-            fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: '-0.04em',
-            marginBottom: '24px',
-          }}>
-            Your tattoo.{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #a78bfa, #7c3aed, #c084fc)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              Your world.
-            </span>
-            <br />One scan.
-          </h1>
-
-          <p className="animate-fade-in-up-3" style={{
-            fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
-            color: '#9ca3af',
-            maxWidth: '600px',
-            margin: '0 auto 40px',
-            lineHeight: 1.7,
-          }}>
-            Get a QR code tattoo that links to a living profile you control.
-            Update your links anytime — your ink never needs changing.
-          </p>
-
-          <div className="animate-fade-in-up-4" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/auth/signup" className="btn-primary" style={{
-              textDecoration: 'none',
-              fontSize: '1rem',
-              padding: '14px 32px',
-              boxShadow: '0 0 40px rgba(124, 58, 237, 0.4)',
-            }}>
-              Create your profile — free
-            </Link>
-            <Link href="#how-it-works" className="btn-secondary" style={{ textDecoration: 'none', fontSize: '1rem', padding: '14px 32px' }}>
-              See how it works
-            </Link>
-          </div>
-        </div>
-
-        {/* Hero mockup */}
-        <div className="animate-float" style={{ marginTop: '80px', position: 'relative', zIndex: 1 }}>
+          }} className="animate-orb" />
           <div style={{
-            background: 'linear-gradient(180deg, rgba(124, 58, 237, 0.15) 0%, transparent 100%)',
-            borderRadius: '24px',
-            border: '1px solid #1f1f1f',
-            padding: '40px 24px',
-            maxWidth: '820px',
-            margin: '0 auto',
-            boxShadow: '0 0 80px rgba(124,58,237,0.1)',
-          }}>
-            <div style={{ display: 'flex', gap: '32px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-
-              {/* Arm + tattoo graphic */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                <TattooArmGraphic />
-                <div style={{ fontSize: '0.75rem', color: '#4b5563' }}>Tattoo sticker</div>
-              </div>
-
-              {/* Arrow with scan animation */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                <div style={{ fontSize: '1.5rem', color: '#4b5563' }}>→</div>
-                <div style={{ fontSize: '0.7rem', color: '#7c3aed', fontWeight: 600 }}>SCAN</div>
-              </div>
-
-              {/* QR card with scanning animation */}
-              <div style={{
-                background: '#111', border: '1px solid #2a2a2a',
-                borderRadius: '16px', padding: '24px', textAlign: 'center',
-                boxShadow: '0 0 40px rgba(124, 58, 237, 0.25)',
-                position: 'relative', overflow: 'hidden',
-              }}>
-                {/* Scan line */}
-                <div className="animate-scan-line" style={{
-                  position: 'absolute', left: 0, right: 0,
-                  height: '2px',
-                  background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.8), transparent)',
-                  zIndex: 2,
-                }} />
-                <div style={{
-                  width: '160px', height: '160px', background: 'white',
-                  borderRadius: '8px', margin: '0 auto 16px', padding: '8px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  position: 'relative',
-                }}>
-                  <QRPlaceholder />
-                </div>
-                <div style={{ fontSize: '0.8rem', color: '#6b7280' }}>Scan to view profile</div>
-              </div>
-
-              <div style={{ fontSize: '1.5rem', color: '#4b5563' }}>→</div>
-
-              {/* Profile card */}
-              <div style={{
-                background: '#111', border: '1px solid #2a2a2a',
-                borderRadius: '16px', padding: '24px', width: '200px',
-              }}>
-                <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-                  <div style={{
-                    width: '56px', height: '56px', borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
-                    margin: '0 auto 8px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '22px',
-                    boxShadow: '0 0 20px rgba(124,58,237,0.4)',
-                  }}>✦</div>
-                  <div style={{ fontWeight: 700, fontSize: '1rem' }}>@james</div>
-                  <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Artist & creator</div>
-                </div>
-                {['Portfolio', 'Instagram', 'Booking'].map((l) => (
-                  <div key={l} style={{
-                    background: '#1a1a1a', borderRadius: '8px', padding: '9px 12px',
-                    marginBottom: '8px', fontSize: '0.82rem', display: 'flex',
-                    alignItems: 'center', gap: '8px',
-                    border: '1px solid #222',
-                  }}>
-                    <span style={{ color: '#7c3aed' }}>↗</span> {l}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section style={{ borderTop: '1px solid #1f1f1f', borderBottom: '1px solid #1f1f1f', padding: '48px 24px' }}>
-        <div style={{
-          maxWidth: '800px', margin: '0 auto',
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-          gap: '32px', textAlign: 'center',
-        }}>
-          {[
-            { value: 'Yours', label: 'QR code, always' },
-            { value: 'Instant', label: 'Profile updates' },
-            { value: 'Free', label: 'Profile forever' },
-            { value: 'Tattoo', label: 'quality printing' },
-          ].map((s) => (
-            <div key={s.value}>
-              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#a78bfa', marginBottom: '4px' }}>{s.value}</div>
-              <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section id="how-it-works" style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <div style={{ fontSize: '0.85rem', color: '#7c3aed', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>
-            How it works
-          </div>
-          <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em' }}>
-            Three steps to forever
-          </h2>
+            position: 'absolute', bottom: '-10%', right: '-5%',
+            width: '50vw', height: '50vw', maxWidth: '600px', maxHeight: '600px',
+            background: 'radial-gradient(circle, rgba(192,132,252,0.1) 0%, transparent 65%)',
+            borderRadius: '50%',
+          }} className="animate-orb" />
+          {/* Grid lines */}
+          <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.03 }} xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-          {[
-            {
-              step: '01',
-              icon: <ProfileIcon />,
-              title: 'Create your profile',
-              desc: 'Sign up free. Add your links, bio, and photo. Customise your profile page exactly how you want it.',
-              color: '#7c3aed',
-            },
-            {
-              step: '02',
-              icon: <QRIcon />,
-              title: 'Order your tattoo',
-              desc: 'We generate a unique QR code just for you and send it to Prodigi for professional tattoo-quality printing.',
-              color: '#a78bfa',
-            },
-            {
-              step: '03',
-              icon: <InfinityIcon />,
-              title: 'Update forever',
-              desc: 'Your QR is yours. Your profile never has to be. Change links, update your bio, add new content — the QR always works.',
-              color: '#c084fc',
-            },
-          ].map((item, i) => (
-            <div key={i} style={{
-              background: '#111', border: '1px solid #1f1f1f',
-              borderRadius: '16px', padding: '32px', position: 'relative', overflow: 'hidden',
-              transition: 'border-color 0.3s, transform 0.3s',
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '1100px', margin: '0 auto', padding: '80px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '64px', alignItems: 'center' }}>
+
+          {/* Left: copy */}
+          <div>
+            <div className="animate-fade-in-up-1" style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              background: 'rgba(124,58,237,0.12)', border: '1px solid rgba(124,58,237,0.35)',
+              borderRadius: '100px', padding: '5px 14px', marginBottom: '28px',
+              fontSize: '0.8rem', color: '#a78bfa', fontWeight: 500,
             }}>
-              {/* Step number watermark */}
-              <div style={{
-                position: 'absolute', top: '16px', right: '24px',
-                fontSize: '5rem', fontWeight: 900, color: '#161616', lineHeight: 1,
-                userSelect: 'none',
-              }}>{item.step}</div>
-              {/* Gradient accent line */}
-              <div style={{
-                position: 'absolute', top: 0, left: 0, right: 0,
-                height: '3px',
-                background: `linear-gradient(90deg, ${item.color}, transparent)`,
-                borderRadius: '16px 16px 0 0',
-              }} />
-              <div style={{
-                width: '52px', height: '52px', borderRadius: '14px',
-                background: 'rgba(124, 58, 237, 0.12)', border: '1px solid rgba(124, 58, 237, 0.25)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: '20px',
-              }}>{item.icon}</div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '10px' }}>{item.title}</h3>
-              <p style={{ color: '#9ca3af', lineHeight: 1.6, fontSize: '0.95rem' }}>{item.desc}</p>
+              <span className="animate-dot-pulse" style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#a78bfa', display: 'inline-block' }} />
+              Your ink. Your identity.
             </div>
-          ))}
+
+            <h1 className="animate-fade-in-up-2" style={{
+              fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
+              fontWeight: 900, lineHeight: 1.0,
+              letterSpacing: '-0.04em', marginBottom: '24px',
+            }}>
+              One scan.<br />
+              <span style={{
+                background: 'linear-gradient(135deg, #c084fc, #7c3aed)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+              }}>Endless you.</span>
+            </h1>
+
+            <p className="animate-fade-in-up-3" style={{
+              fontSize: '1.1rem', color: '#9ca3af', lineHeight: 1.7,
+              maxWidth: '440px', marginBottom: '36px',
+            }}>
+              A QR code tattoo linked to a profile you control. Change your links, bio, and look — your ink stays the same.
+            </p>
+
+            <div className="animate-fade-in-up-4" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <Link href="/auth/signup" className="btn-primary" style={{
+                textDecoration: 'none', fontSize: '1rem', padding: '14px 28px',
+                boxShadow: '0 0 40px rgba(124,58,237,0.5)',
+              }}>
+                Get started — free
+              </Link>
+              <Link href="#how" className="btn-secondary" style={{ textDecoration: 'none', fontSize: '1rem', padding: '14px 28px' }}>
+                How it works ↓
+              </Link>
+            </div>
+
+            {/* Trust badges */}
+            <div className="animate-fade-in-up-4" style={{ display: 'flex', gap: '24px', marginTop: '40px', flexWrap: 'wrap' }}>
+              {['Free profile', 'Instant updates', 'Ships worldwide'].map((t) => (
+                <div key={t} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', color: '#6b7280' }}>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <circle cx="7" cy="7" r="6" stroke="#7c3aed" strokeWidth="1.5"/>
+                    <path d="M4.5 7l1.8 1.8L9.5 5" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  {t}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: hero visual */}
+          <div className="animate-float" style={{ display: 'flex', justifyContent: 'center' }}>
+            <HeroVisual />
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div style={{ position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+          <div style={{ fontSize: '0.7rem', color: '#4b5563', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Scroll</div>
+          <div style={{ width: '1px', height: '40px', background: 'linear-gradient(to bottom, #7c3aed, transparent)' }} className="animate-pulse-glow" />
         </div>
       </section>
 
-      {/* Features */}
-      <section style={{ background: '#0a0a0a', borderTop: '1px solid #1f1f1f', padding: '100px 24px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#7c3aed', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>
-              Features
-            </div>
-            <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em' }}>
-              Everything you need
-            </h2>
+      {/* ── How it works ── */}
+      <section id="how" style={{ padding: '120px 24px', position: 'relative' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+
+          <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+            <p style={{ fontSize: '0.8rem', color: '#7c3aed', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>How it works</p>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em' }}>Three steps.</h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2px', background: '#111', borderRadius: '20px', overflow: 'hidden', border: '1px solid #1a1a1a' }}>
             {[
-              { icon: '⬡', title: 'Unique QR code', desc: 'Every user gets a high error-correction QR code that never expires.', glow: true },
-              { icon: '✎', title: 'Editable profile', desc: 'Update your bio, links, and appearance any time — changes go live instantly.' },
-              { icon: '◎', title: 'Custom username', desc: 'Choose a clean vanity URL. Share it on social or let people scan your tattoo.' },
-              { icon: '↗', title: 'Unlimited links', desc: 'Add as many links as you want. Reorder them by drag. Toggle them on or off.' },
-              { icon: '◈', title: 'Tattoo printing', desc: 'Professional-quality printed tattoo stickers via Prodigi, shipped worldwide.' },
-              { icon: '⚡', title: 'Fast & reliable', desc: 'Profile pages are cached and served instantly. No slow-loading link trees.' },
-            ].map((f, i) => (
+              {
+                n: '01',
+                visual: <ProfileVisual />,
+                title: 'Build your profile',
+                sub: 'Add links, bio, photo. Make it yours.',
+              },
+              {
+                n: '02',
+                visual: <OrderVisual />,
+                title: 'Order your tattoo',
+                sub: 'We print your unique QR. Pro quality.',
+              },
+              {
+                n: '03',
+                visual: <UpdateVisual />,
+                title: 'Update anytime',
+                sub: 'Your ink never changes. Your profile can.',
+              },
+            ].map((s, i) => (
               <div key={i} style={{
-                background: '#111', border: '1px solid #1f1f1f',
-                borderRadius: '12px', padding: '24px',
-                transition: 'border-color 0.2s, transform 0.2s',
+                background: '#080808', padding: '48px 32px',
+                display: 'flex', flexDirection: 'column', gap: '24px',
+                borderRight: i < 2 ? '1px solid #111' : 'none',
                 position: 'relative', overflow: 'hidden',
               }}>
-                {f.glow && (
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'radial-gradient(circle at top left, rgba(124,58,237,0.08), transparent 60%)',
-                    pointerEvents: 'none',
-                  }} />
-                )}
                 <div style={{
-                  color: '#7c3aed', fontSize: '1.5rem', marginBottom: '12px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  width: '44px', height: '44px',
-                  background: 'rgba(124,58,237,0.1)', borderRadius: '10px',
-                  border: '1px solid rgba(124,58,237,0.2)',
-                }}>{f.icon}</div>
-                <div style={{ fontWeight: 600, marginBottom: '8px' }}>{f.title}</div>
-                <div style={{ color: '#6b7280', fontSize: '0.875rem', lineHeight: 1.6 }}>{f.desc}</div>
+                  position: 'absolute', top: '20px', right: '24px',
+                  fontSize: '4.5rem', fontWeight: 900, color: '#0f0f0f',
+                  lineHeight: 1, userSelect: 'none',
+                }}>{s.n}</div>
+                <div>{s.visual}</div>
+                <div>
+                  <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.02em' }}>{s.title}</h3>
+                  <p style={{ color: '#6b7280', fontSize: '0.9rem', lineHeight: 1.6 }}>{s.sub}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Social proof strip */}
-      <section style={{ borderTop: '1px solid #1f1f1f', borderBottom: '1px solid #1f1f1f', padding: '32px 24px', overflow: 'hidden' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', gap: '48px', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
-          {['Artists', 'Musicians', 'Photographers', 'Creators', 'Athletes', 'Designers'].map((label) => (
-            <div key={label} style={{
-              fontSize: '0.875rem', color: '#4b5563', fontWeight: 500,
-              display: 'flex', alignItems: 'center', gap: '8px',
-            }}>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#7c3aed', display: 'inline-block' }} />
-              {label}
+      {/* ── Showcase ── */}
+      <section style={{ background: '#050505', borderTop: '1px solid #111', borderBottom: '1px solid #111', padding: '120px 24px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          width: '800px', height: '400px',
+          background: 'radial-gradient(ellipse, rgba(124,58,237,0.07) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px', alignItems: 'center', position: 'relative', zIndex: 1 }}>
+          <div>
+            <p style={{ fontSize: '0.8rem', color: '#7c3aed', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>The profile</p>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '20px', lineHeight: 1.1 }}>
+              Everything about you.<br />
+              <span style={{ color: '#7c3aed' }}>One link.</span>
+            </h2>
+            <p style={{ color: '#6b7280', lineHeight: 1.7, marginBottom: '32px', fontSize: '0.95rem', maxWidth: '380px' }}>
+              Unlimited links. Custom bio. Profile photo. Change it all in seconds — no reprinting ever.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {['Custom username & vanity URL', 'Unlimited links with drag reorder', 'Instant live updates', 'QR code that never expires'].map((f) => (
+                <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', color: '#d1d5db' }}>
+                  <div style={{ width: '20px', height: '20px', borderRadius: '6px', background: 'rgba(124,58,237,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 5l2.5 2.5L8 2.5" stroke="#a78bfa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  {f}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <PhoneMockup />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Stats ── */}
+      <section style={{ padding: '80px 24px', borderBottom: '1px solid #111' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '48px', textAlign: 'center' }}>
+          {[
+            { val: '∞', label: 'Link updates' },
+            { val: '0', label: 'Monthly fee' },
+            { val: '1', label: 'Tattoo needed' },
+            { val: '↑', label: 'Your control' },
+          ].map((s) => (
+            <div key={s.label}>
+              <div style={{ fontSize: '2.5rem', fontWeight: 900, color: '#a78bfa', marginBottom: '6px', letterSpacing: '-0.02em' }}>{s.val}</div>
+              <div style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: 500 }}>{s.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ maxWidth: '700px', margin: '0 auto', padding: '120px 24px', textAlign: 'center', position: 'relative' }}>
+      {/* ── Who is it for ── */}
+      <section style={{ padding: '120px 24px' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <p style={{ fontSize: '0.8rem', color: '#7c3aed', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Who it's for</p>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em' }}>Built for creators.</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px' }}>
+            {[
+              { icon: '🎨', label: 'Artists' },
+              { icon: '🎵', label: 'Musicians' },
+              { icon: '📸', label: 'Photographers' },
+              { icon: '✍️', label: 'Writers' },
+              { icon: '🏋️', label: 'Athletes' },
+              { icon: '💻', label: 'Developers' },
+            ].map((c) => (
+              <div key={c.label} style={{
+                background: '#0e0e0e', border: '1px solid #1a1a1a',
+                borderRadius: '16px', padding: '28px 16px',
+                textAlign: 'center', display: 'flex', flexDirection: 'column',
+                alignItems: 'center', gap: '10px',
+                transition: 'border-color 0.2s',
+              }}>
+                <span style={{ fontSize: '2rem' }}>{c.icon}</span>
+                <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#d1d5db' }}>{c.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section style={{ padding: '120px 24px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 65%)',
+          pointerEvents: 'none',
+        }} />
+        {/* Decorative rings */}
         <div style={{
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '600px', height: '300px',
-          background: 'radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+          width: '500px', height: '500px',
+          border: '1px solid rgba(124,58,237,0.08)',
+          borderRadius: '50%', pointerEvents: 'none',
+        }} className="animate-spin-slow" />
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '700px', height: '700px',
+          border: '1px solid rgba(124,58,237,0.05)',
+          borderRadius: '50%', pointerEvents: 'none',
+        }} className="animate-spin-slow" />
+
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-            Ready to wear your{' '}
+          <h2 style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: '20px', lineHeight: 1.05 }}>
+            Commit to your{' '}
             <span style={{
               background: 'linear-gradient(135deg, #a78bfa, #7c3aed)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            }}>identity?</span>
+            }}>identity.</span>
           </h2>
-          <p style={{ color: '#9ca3af', marginBottom: '40px', fontSize: '1.1rem', lineHeight: 1.7 }}>
-            Sign up free, set up your profile in minutes, and order your tattoo.
-            Your QR code is yours — your profile evolves with you.
+          <p style={{ color: '#6b7280', fontSize: '1.05rem', marginBottom: '40px', maxWidth: '400px', margin: '0 auto 40px', lineHeight: 1.7 }}>
+            Free profile. No subscriptions. Order when you're ready.
           </p>
           <Link href="/auth/signup" className="btn-primary animate-pulse-glow" style={{
-            textDecoration: 'none', fontSize: '1rem', padding: '16px 40px',
+            textDecoration: 'none', fontSize: '1.05rem', padding: '16px 44px',
           }}>
             Start for free →
           </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{
-        borderTop: '1px solid #1f1f1f', padding: '40px 24px',
-        textAlign: 'center', color: '#4b5563', fontSize: '0.875rem',
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+      {/* ── Footer ── */}
+      <footer style={{ borderTop: '1px solid #111', padding: '40px 24px', textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
           <div style={{
-            width: '24px', height: '24px', borderRadius: '6px',
+            width: '26px', height: '26px', borderRadius: '7px',
             background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 700, fontSize: '12px', color: 'white',
+            fontWeight: 800, fontSize: '13px', color: 'white',
           }}>I</div>
-          <span style={{ color: '#6b7280', fontWeight: 600 }}>InkyIdentity</span>
+          <span style={{ fontWeight: 700, color: '#9ca3af', fontSize: '0.95rem' }}>InkyIdentity</span>
         </div>
-        <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', marginBottom: '16px', flexWrap: 'wrap' }}>
-          <Link href="/auth/login" style={{ color: '#6b7280', textDecoration: 'none' }}>Sign in</Link>
-          <Link href="/auth/signup" style={{ color: '#6b7280', textDecoration: 'none' }}>Create account</Link>
+        <div style={{ display: 'flex', gap: '28px', justifyContent: 'center', marginBottom: '20px', flexWrap: 'wrap' }}>
+          <Link href="/auth/login" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.875rem' }}>Sign in</Link>
+          <Link href="/auth/signup" style={{ color: '#4b5563', textDecoration: 'none', fontSize: '0.875rem' }}>Create account</Link>
         </div>
-        <p>© {new Date().getFullYear()} InkyIdentity. Built for those who commit.</p>
+        <p style={{ color: '#2a2a2a', fontSize: '0.8rem' }}>© {new Date().getFullYear()} InkyIdentity. Built for those who commit.</p>
       </footer>
     </div>
   );
 }
 
-/* ── SVG Icons ── */
+/* ── Visuals ── */
 
-function ProfileIcon() {
+function HeroVisual() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-    </svg>
-  );
-}
+    <svg width="380" height="420" viewBox="0 0 380 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Glow backdrop */}
+      <ellipse cx="190" cy="210" rx="160" ry="160" fill="url(#heroGlow)" />
 
-function QRIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" rx="1" />
-      <rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" />
-      <rect x="5" y="5" width="3" height="3" fill="#a78bfa" stroke="none" />
-      <rect x="16" y="5" width="3" height="3" fill="#a78bfa" stroke="none" />
-      <rect x="5" y="16" width="3" height="3" fill="#a78bfa" stroke="none" />
-      <path d="M14 14h3v3h-3zM17 17h3v3h-3zM14 17h3" />
-    </svg>
-  );
-}
+      {/* Arm */}
+      <ellipse cx="190" cy="300" rx="90" ry="120" fill="#141414" stroke="#222" strokeWidth="1" />
+      <ellipse cx="190" cy="290" rx="80" ry="108" fill="#181818" />
+      <ellipse cx="190" cy="275" rx="68" ry="88" fill="url(#armShade)" opacity="0.5" />
 
-function InfinityIcon() {
-  return (
-    <svg width="28" height="24" viewBox="0 0 28 24" fill="none" stroke="#a78bfa" strokeWidth="1.8" strokeLinecap="round">
-      <path d="M14 12c-2-4-6-6-8-4s-2 8 0 8 6-8 8-4 6 8 8 4 2-8 0-8-6 4-8 4z" />
-    </svg>
-  );
-}
+      {/* Tattoo sticker on arm */}
+      <rect x="148" y="245" width="84" height="84" rx="8" fill="white" opacity="0.97" />
+      <rect x="150" y="247" width="84" height="84" rx="7" fill="white" />
+      {/* QR finders */}
+      <rect x="155" y="252" width="24" height="24" rx="2" fill="#111" />
+      <rect x="158" y="255" width="18" height="18" rx="1" fill="white" />
+      <rect x="161" y="258" width="12" height="12" rx="1" fill="#111" />
+      <rect x="201" y="252" width="24" height="24" rx="2" fill="#111" />
+      <rect x="204" y="255" width="18" height="18" rx="1" fill="white" />
+      <rect x="207" y="258" width="12" height="12" rx="1" fill="#111" />
+      <rect x="155" y="298" width="24" height="24" rx="2" fill="#111" />
+      <rect x="158" y="301" width="18" height="18" rx="1" fill="white" />
+      <rect x="161" y="304" width="12" height="12" rx="1" fill="#111" />
+      {/* Data dots */}
+      {[[183,252],[189,252],[195,252],[183,258],[195,258],[183,264],[189,264],[195,264],
+        [183,276],[189,276],[195,276],[183,282],[183,288],[195,288],[189,294],[195,294],
+        [201,282],[207,282],[213,276],[207,288],[213,288],[207,294],[213,294]].map(([x,y],i) => (
+        <rect key={i} x={x} y={y} width="4" height="4" fill="#111" />
+      ))}
 
-function TattooArmGraphic() {
-  return (
-    <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Arm silhouette */}
-      <ellipse cx="80" cy="110" rx="38" ry="52" fill="#1a1a1a" stroke="#2a2a2a" strokeWidth="1" />
-      <ellipse cx="80" cy="110" rx="35" ry="49" fill="#1d1d1d" />
-      {/* Skin tone gradient overlay */}
-      <ellipse cx="80" cy="98" rx="30" ry="40" fill="url(#skinGrad)" opacity="0.4" />
-      {/* Tattoo QR on arm */}
-      <g transform="translate(58, 78)">
-        <rect width="44" height="44" rx="4" fill="white" opacity="0.95" />
-        {/* Mini QR pattern */}
-        <rect x="3" y="3" width="14" height="14" rx="1" fill="#1a1a1a" />
-        <rect x="5" y="5" width="10" height="10" rx="0.5" fill="white" />
-        <rect x="7" y="7" width="6" height="6" rx="0.5" fill="#1a1a1a" />
-        <rect x="27" y="3" width="14" height="14" rx="1" fill="#1a1a1a" />
-        <rect x="29" y="5" width="10" height="10" rx="0.5" fill="white" />
-        <rect x="31" y="7" width="6" height="6" rx="0.5" fill="#1a1a1a" />
-        <rect x="3" y="27" width="14" height="14" rx="1" fill="#1a1a1a" />
-        <rect x="5" y="29" width="10" height="10" rx="0.5" fill="white" />
-        <rect x="7" y="31" width="6" height="6" rx="0.5" fill="#1a1a1a" />
-        {/* Data modules */}
-        <rect x="19" y="3" width="4" height="4" fill="#1a1a1a" />
-        <rect x="19" y="9" width="4" height="4" fill="#1a1a1a" />
-        <rect x="3" y="19" width="4" height="4" fill="#1a1a1a" />
-        <rect x="9" y="19" width="4" height="4" fill="#1a1a1a" />
-        <rect x="19" y="19" width="4" height="4" fill="#1a1a1a" />
-        <rect x="25" y="19" width="4" height="4" fill="#1a1a1a" />
-        <rect x="31" y="19" width="4" height="4" fill="#1a1a1a" />
-        <rect x="37" y="19" width="4" height="4" fill="#1a1a1a" />
-        <rect x="19" y="25" width="4" height="4" fill="#1a1a1a" />
-        <rect x="25" y="25" width="4" height="4" fill="#1a1a1a" />
-        <rect x="31" y="31" width="4" height="4" fill="#1a1a1a" />
-        <rect x="37" y="25" width="4" height="4" fill="#1a1a1a" />
-        <rect x="37" y="37" width="4" height="4" fill="#1a1a1a" />
-        <rect x="19" y="37" width="4" height="4" fill="#1a1a1a" />
-        <rect x="25" y="31" width="4" height="4" fill="#1a1a1a" />
+      {/* Scan line on tattoo */}
+      <rect x="148" y="245" width="84" height="2" rx="1" fill="url(#scanGrad)" opacity="0.8" className="animate-scan-line" style={{ position: 'absolute' }} />
+
+      {/* Phone mockup */}
+      <rect x="260" y="60" width="100" height="180" rx="14" fill="#111" stroke="#2a2a2a" strokeWidth="1.5" />
+      <rect x="266" y="74" width="88" height="152" rx="8" fill="#0a0a0a" />
+      {/* Notch */}
+      <rect x="296" y="65" width="28" height="7" rx="3.5" fill="#1a1a1a" />
+      {/* Profile content on phone */}
+      <circle cx="310" cy="108" r="18" fill="url(#profileGrad)" />
+      <text x="310" y="113" textAnchor="middle" fontSize="14" fill="white" fontWeight="700">✦</text>
+      <rect x="287" y="132" width="46" height="6" rx="3" fill="#222" />
+      <rect x="293" y="142" width="34" height="4" rx="2" fill="#1a1a1a" />
+      {['Portfolio','Instagram','Booking'].map((l, i) => (
+        <g key={l}>
+          <rect x="274" y={157 + i * 24} width="72" height="18" rx="5" fill="#161616" stroke="#222" strokeWidth="0.5" />
+          <text x="310" y={169 + i * 24} textAnchor="middle" fontSize="7" fill="#9ca3af">{l}</text>
+        </g>
+      ))}
+
+      {/* Arrow connecting tattoo to phone */}
+      <path d="M 240 290 Q 260 250 265 200" stroke="#7c3aed" strokeWidth="1.5" strokeDasharray="4 4" fill="none" opacity="0.6" />
+      <circle cx="265" cy="200" r="3" fill="#7c3aed" opacity="0.8" />
+
+      {/* Floating tags */}
+      <g className="animate-float">
+        <rect x="10" y="80" width="100" height="34" rx="8" fill="#111" stroke="#2a2a2a" strokeWidth="1" />
+        <text x="26" y="97" fontSize="9" fill="#7c3aed">⬡</text>
+        <text x="36" y="97" fontSize="9" fill="#d1d5db" fontWeight="600">Unique QR</text>
+        <text x="26" y="108" fontSize="7.5" fill="#4b5563">Never expires</text>
       </g>
-      {/* Glow around tattoo */}
-      <ellipse cx="80" cy="100" rx="25" ry="25" fill="url(#tattooGlow)" />
+      <g className="animate-float" style={{ animationDelay: '1s' }}>
+        <rect x="16" y="170" width="106" height="34" rx="8" fill="#111" stroke="#2a2a2a" strokeWidth="1" />
+        <text x="26" y="187" fontSize="9" fill="#a78bfa">✎</text>
+        <text x="38" y="187" fontSize="9" fill="#d1d5db" fontWeight="600">Live updates</text>
+        <text x="26" y="198" fontSize="7.5" fill="#4b5563">Edit any time</text>
+      </g>
+      <g className="animate-float" style={{ animationDelay: '2s' }}>
+        <rect x="8" y="380" width="120" height="34" rx="8" fill="#111" stroke="#2a2a2a" strokeWidth="1" />
+        <text x="26" y="397" fontSize="9" fill="#c084fc">◈</text>
+        <text x="38" y="397" fontSize="9" fill="#d1d5db" fontWeight="600">Tattoo quality</text>
+        <text x="26" y="408" fontSize="7.5" fill="#4b5563">Ships worldwide</text>
+      </g>
+
       <defs>
-        <radialGradient id="skinGrad" cx="50%" cy="40%" r="60%">
-          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.15" />
+        <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#080808" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="armShade" cx="50%" cy="30%" r="60%">
+          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.12" />
           <stop offset="100%" stopColor="transparent" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="tattooGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="transparent" stopOpacity="0" />
-        </radialGradient>
+        <linearGradient id="profileGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#7c3aed" />
+          <stop offset="100%" stopColor="#a78bfa" />
+        </linearGradient>
+        <linearGradient id="scanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="transparent" />
+          <stop offset="50%" stopColor="#7c3aed" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="transparent" />
+        </linearGradient>
       </defs>
     </svg>
   );
 }
 
-function QRPlaceholder() {
+function ProfileVisual() {
   return (
-    <svg viewBox="0 0 100 100" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-      {/* Top-left finder */}
-      <rect x="5" y="5" width="30" height="30" rx="2" fill="#000" />
-      <rect x="9" y="9" width="22" height="22" rx="1" fill="white" />
-      <rect x="13" y="13" width="14" height="14" rx="1" fill="#000" />
-      {/* Top-right finder */}
-      <rect x="65" y="5" width="30" height="30" rx="2" fill="#000" />
-      <rect x="69" y="9" width="22" height="22" rx="1" fill="white" />
-      <rect x="73" y="13" width="14" height="14" rx="1" fill="#000" />
-      {/* Bottom-left finder */}
-      <rect x="5" y="65" width="30" height="30" rx="2" fill="#000" />
-      <rect x="9" y="69" width="22" height="22" rx="1" fill="white" />
-      <rect x="13" y="73" width="14" height="14" rx="1" fill="#000" />
-      {/* Data modules */}
-      <rect x="40" y="40" width="4" height="4" fill="#000" />
-      <rect x="50" y="40" width="4" height="4" fill="#000" />
-      <rect x="60" y="40" width="4" height="4" fill="#000" />
-      <rect x="40" y="50" width="4" height="4" fill="#000" />
-      <rect x="60" y="50" width="4" height="4" fill="#000" />
-      <rect x="45" y="55" width="4" height="4" fill="#000" />
-      <rect x="55" y="45" width="4" height="4" fill="#000" />
-      <rect x="40" y="60" width="4" height="4" fill="#000" />
-      <rect x="55" y="60" width="4" height="4" fill="#000" />
-      <rect x="65" y="40" width="4" height="4" fill="#000" />
-      <rect x="70" y="50" width="4" height="4" fill="#000" />
-      <rect x="75" y="40" width="4" height="4" fill="#000" />
-      <rect x="40" y="70" width="4" height="4" fill="#000" />
-      <rect x="50" y="75" width="4" height="4" fill="#000" />
-      <rect x="60" y="70" width="4" height="4" fill="#000" />
-      <rect x="70" y="65" width="4" height="4" fill="#000" />
-      <rect x="75" y="75" width="4" height="4" fill="#000" />
+    <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="140" height="100" rx="12" fill="#0e0e0e" />
+      <circle cx="70" cy="32" r="18" fill="url(#pvGrad)" />
+      <text x="70" y="37" textAnchor="middle" fontSize="14" fill="white" fontWeight="700">✦</text>
+      <rect x="44" y="56" width="52" height="7" rx="3.5" fill="#1f1f1f" />
+      <rect x="52" y="67" width="36" height="5" rx="2.5" fill="#161616" />
+      {['Link 1', 'Link 2'].map((l, i) => (
+        <rect key={l} x="28" y={78 + i * 12} width="84" height="9" rx="4" fill="#161616" stroke="#222" strokeWidth="0.5" />
+      ))}
+      <defs>
+        <linearGradient id="pvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#7c3aed" /><stop offset="100%" stopColor="#a78bfa" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+function OrderVisual() {
+  return (
+    <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="140" height="100" rx="12" fill="#0e0e0e" />
+      {/* QR code */}
+      <rect x="40" y="16" width="60" height="60" rx="6" fill="white" opacity="0.95" />
+      <rect x="45" y="21" width="18" height="18" rx="1.5" fill="#111" />
+      <rect x="47" y="23" width="14" height="14" rx="1" fill="white" />
+      <rect x="49" y="25" width="10" height="10" rx="0.5" fill="#111" />
+      <rect x="77" y="21" width="18" height="18" rx="1.5" fill="#111" />
+      <rect x="79" y="23" width="14" height="14" rx="1" fill="white" />
+      <rect x="81" y="25" width="10" height="10" rx="0.5" fill="#111" />
+      <rect x="45" y="53" width="18" height="18" rx="1.5" fill="#111" />
+      <rect x="47" y="55" width="14" height="14" rx="1" fill="white" />
+      <rect x="49" y="57" width="10" height="10" rx="0.5" fill="#111" />
+      {[[65,21],[71,21],[65,27],[65,33],[71,33],[65,39],[71,39],[77,39],[83,39],[77,45],[83,51],[77,57],[83,57],[65,51],[65,57]].map(([x,y],i) => (
+        <rect key={i} x={x} y={y} width="4" height="4" fill="#111" />
+      ))}
+      {/* Label */}
+      <rect x="30" y="82" width="80" height="12" rx="6" fill="rgba(124,58,237,0.15)" />
+      <text x="70" y="92" textAnchor="middle" fontSize="7" fill="#a78bfa" fontWeight="700">YOUR UNIQUE CODE</text>
+    </svg>
+  );
+}
+
+function UpdateVisual() {
+  return (
+    <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="140" height="100" rx="12" fill="#0e0e0e" />
+      {/* Before */}
+      <rect x="12" y="20" width="52" height="60" rx="8" fill="#111" stroke="#1f1f1f" strokeWidth="1" />
+      <circle cx="38" cy="38" r="10" fill="#1f1f1f" />
+      <rect x="20" y="52" width="36" height="4" rx="2" fill="#1f1f1f" />
+      <rect x="18" y="60" width="40" height="7" rx="3" fill="#161616" />
+      <rect x="18" y="70" width="40" height="7" rx="3" fill="#161616" />
+      {/* Arrow */}
+      <path d="M 68 50 L 76 50" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" />
+      <path d="M 73 46 L 77 50 L 73 54" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      {/* After */}
+      <rect x="80" y="20" width="52" height="60" rx="8" fill="#111" stroke="#7c3aed" strokeWidth="1" />
+      <circle cx="106" cy="38" r="10" fill="url(#upGrad)" />
+      <text x="106" y="42" textAnchor="middle" fontSize="9" fill="white">✦</text>
+      <rect x="88" y="52" width="36" height="4" rx="2" fill="#1f1f1f" />
+      {['New link','Portfolio','Booking'].map((l, i) => (
+        <rect key={l} x="86" y={60 + i * 9} width="40" height="7" rx="3" fill={i === 0 ? 'rgba(124,58,237,0.25)' : '#161616'} />
+      ))}
+      <defs>
+        <linearGradient id="upGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#7c3aed" /><stop offset="100%" stopColor="#a78bfa" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+function PhoneMockup() {
+  return (
+    <svg width="240" height="460" viewBox="0 0 240 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Phone shell */}
+      <rect x="4" y="4" width="232" height="452" rx="36" fill="#0a0a0a" stroke="#2a2a2a" strokeWidth="2" />
+      <rect x="8" y="8" width="224" height="444" rx="33" fill="#080808" stroke="#1a1a1a" strokeWidth="1" />
+      {/* Screen */}
+      <rect x="12" y="12" width="216" height="436" rx="30" fill="#0d0d0d" />
+      {/* Notch */}
+      <rect x="84" y="16" width="72" height="22" rx="11" fill="#0a0a0a" />
+      {/* Side buttons */}
+      <rect x="0" y="100" width="4" height="40" rx="2" fill="#1a1a1a" />
+      <rect x="0" y="150" width="4" height="60" rx="2" fill="#1a1a1a" />
+      <rect x="236" y="120" width="4" height="70" rx="2" fill="#1a1a1a" />
+
+      {/* Profile screen content */}
+      {/* Header gradient */}
+      <rect x="12" y="12" width="216" height="120" rx="30" fill="url(#phoneHeader)" />
+      <rect x="12" y="110" width="216" height="32" fill="url(#phoneFade)" />
+
+      {/* Avatar */}
+      <circle cx="120" cy="100" r="36" fill="url(#phoneAvatar)" />
+      <circle cx="120" cy="100" r="36" stroke="#080808" strokeWidth="3" />
+      <text x="120" y="107" textAnchor="middle" fontSize="24" fill="white" fontWeight="700">✦</text>
+
+      {/* Name */}
+      <text x="120" y="158" textAnchor="middle" fontSize="16" fill="white" fontWeight="800">@james</text>
+      <text x="120" y="174" textAnchor="middle" fontSize="11" fill="#6b7280">Artist &amp; creator · London</text>
+
+      {/* Bio */}
+      <text x="120" y="196" textAnchor="middle" fontSize="10" fill="#4b5563">Tattoo artist. Visual storyteller.</text>
+
+      {/* Links */}
+      {[
+        { label: 'Portfolio', icon: '◈', y: 216 },
+        { label: 'Instagram', icon: '⬡', y: 248 },
+        { label: 'Book a session', icon: '◎', y: 280 },
+        { label: 'YouTube', icon: '↗', y: 312 },
+      ].map((link) => (
+        <g key={link.label}>
+          <rect x="28" y={link.y} width="184" height="28" rx="8" fill="#111" stroke="#1f1f1f" strokeWidth="1" />
+          <text x="52" y={link.y + 18} fontSize="10" fill="#7c3aed">{link.icon}</text>
+          <text x="120" y={link.y + 18} textAnchor="middle" fontSize="10" fill="#d1d5db" fontWeight="500">{link.label}</text>
+        </g>
+      ))}
+
+      {/* QR section */}
+      <rect x="28" y="352" width="184" height="76" rx="10" fill="#0e0e0e" stroke="#1a1a1a" strokeWidth="1" />
+      <rect x="48" y="362" width="48" height="48" rx="4" fill="white" opacity="0.95" />
+      {/* Mini QR */}
+      <rect x="50" y="364" width="12" height="12" rx="1" fill="#111" />
+      <rect x="51.5" y="365.5" width="9" height="9" rx="0.5" fill="white" />
+      <rect x="53" y="367" width="6" height="6" rx="0.5" fill="#111" />
+      <rect x="66" y="364" width="12" height="12" rx="1" fill="#111" />
+      <rect x="67.5" y="365.5" width="9" height="9" rx="0.5" fill="white" />
+      <rect x="69" y="367" width="6" height="6" rx="0.5" fill="#111" />
+      <rect x="50" y="378" width="12" height="12" rx="1" fill="#111" />
+      <rect x="51.5" y="379.5" width="9" height="9" rx="0.5" fill="white" />
+      <rect x="53" y="381" width="6" height="6" rx="0.5" fill="#111" />
+      {[[63,376],[63,380],[63,384],[63,388],[67,376],[71,376],[75,376],[75,380],[71,384],[75,388],[67,384],[67,388],[71,388]].map(([x,y],i) => (
+        <rect key={i} x={x} y={y} width="3" height="3" fill="#111" />
+      ))}
+      <text x="154" y="384" textAnchor="middle" fontSize="9" fill="#d1d5db" fontWeight="600">Scan my tattoo</text>
+      <text x="154" y="397" textAnchor="middle" fontSize="8" fill="#4b5563">@james.inkyi.com</text>
+
+      <defs>
+        <linearGradient id="phoneHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#080808" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="phoneFade" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#0d0d0d" stopOpacity="0" />
+          <stop offset="100%" stopColor="#0d0d0d" stopOpacity="1" />
+        </linearGradient>
+        <linearGradient id="phoneAvatar" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#7c3aed" />
+          <stop offset="100%" stopColor="#a78bfa" />
+        </linearGradient>
+      </defs>
     </svg>
   );
 }
