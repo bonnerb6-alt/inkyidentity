@@ -56,9 +56,13 @@ export async function POST(req: NextRequest) {
     const qrCodeUrl = `${baseUrl}/api/qr/image/${displayId}`;
 
     // Get shipping address — prefer Stripe's collected address if available
-    const stripeAddr = session.shipping_details?.address;
+    const sessionObj = session as unknown as {
+      shipping_details?: { name?: string; address?: { line1?: string; line2?: string; postal_code?: string; country?: string; city?: string } };
+      customer_details?: { name?: string };
+    };
+    const stripeAddr = sessionObj.shipping_details?.address;
     const recipient = {
-      name: session.shipping_details?.name || session.customer_details?.name || 'Customer',
+      name: sessionObj.shipping_details?.name || sessionObj.customer_details?.name || 'Customer',
       address: {
         line1:           stripeAddr?.line1        || order.address_line1,
         line2:           stripeAddr?.line2        || order.address_line2 || undefined,
