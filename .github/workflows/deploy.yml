@@ -9,12 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "
             set -e
             cd /root/inkyidentity
             git pull origin main
@@ -22,3 +26,4 @@ jobs:
             npm run build
             pm2 restart inkyidentity || pm2 start npm --name inkyidentity -- start
             pm2 save
+          "
