@@ -64,7 +64,8 @@
       "Bash(npm run *)",
       "Bash(ssh *)",
       "Bash(cat C:/xampp/htdocs/inkyidentity/scripts/*.sh)",
-      "Bash(ls *)"
+      "Bash(ls *)",
+      "Bash(ssh-keygen *)"
     ]
   }
 }
