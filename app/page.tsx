@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getSession } from '@/lib/auth';
+import NavClient from './NavClient';
 
 export default async function Home() {
   const session = await getSession();
@@ -8,34 +9,7 @@ export default async function Home() {
     <div style={{ background: '#080808', color: '#f9fafb', minHeight: '100vh', overflowX: 'hidden' }}>
 
       {/* ── Nav ── */}
-      <nav style={{
-        padding: '0 32px', height: '64px',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        position: 'sticky', top: 0, zIndex: 100,
-        background: 'rgba(8,8,8,0.8)', backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{
-            width: '34px', height: '34px', borderRadius: '9px',
-            background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 800, fontSize: '17px', color: 'white',
-            boxShadow: '0 0 20px rgba(124,58,237,0.6)',
-          }}>I</div>
-          <span style={{ fontWeight: 700, fontSize: '18px', letterSpacing: '-0.02em' }}>InkyIdentity</span>
-        </div>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          {session ? (
-            <Link href="/dashboard" className="btn-primary" style={{ textDecoration: 'none' }}>Dashboard</Link>
-          ) : (
-            <>
-              <Link href="/auth/login" className="btn-secondary" style={{ textDecoration: 'none' }}>Sign in</Link>
-              <Link href="/auth/signup" className="btn-primary" style={{ textDecoration: 'none' }}>Get started</Link>
-            </>
-          )}
-        </div>
-      </nav>
+      <NavClient isLoggedIn={!!session} />
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>

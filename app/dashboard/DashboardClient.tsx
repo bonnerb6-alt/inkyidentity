@@ -193,21 +193,22 @@ export default function DashboardClient({
             <span style={{ color: '#f9fafb', fontWeight: 700, fontSize: '1rem' }}>InkyIdentity</span>
           </Link>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div className="dash-header-actions">
           <Link
             href={`/u/${user.display_id}`}
             target="_blank"
-            style={{ color: '#6b7280', fontSize: '0.875rem', textDecoration: 'none' }}
+            className="dash-header-secondary"
+            style={{ color: '#6b7280', fontSize: '0.875rem', textDecoration: 'none', alignItems: 'center' }}
           >
             ↗ View profile
           </Link>
-          {/* Admin link — only shown if user is admin (checked server-side on that page) */}
           <Link
             href="/admin"
+            className="dash-header-secondary"
             style={{
               fontSize: '0.75rem', textDecoration: 'none', fontWeight: 700,
               background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.25)',
-              color: '#f87171', borderRadius: '6px', padding: '3px 8px',
+              color: '#f87171', borderRadius: '6px', padding: '3px 8px', alignItems: 'center',
             }}
           >
             Admin
@@ -216,13 +217,13 @@ export default function DashboardClient({
             width: '32px', height: '32px', borderRadius: '50%',
             background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 700, fontSize: '14px', cursor: 'pointer',
+            fontWeight: 700, fontSize: '14px', cursor: 'pointer', flexShrink: 0,
           }} title={user.username}>
             {user.username[0].toUpperCase()}
           </div>
           <button onClick={logout} style={{
             background: 'transparent', border: '1px solid #2a2a2a', borderRadius: '7px',
-            color: '#6b7280', padding: '6px 12px', fontSize: '0.8rem', cursor: 'pointer',
+            color: '#6b7280', padding: '6px 12px', fontSize: '0.8rem', cursor: 'pointer', whiteSpace: 'nowrap',
           }}>
             Sign out
           </button>
@@ -262,13 +263,9 @@ export default function DashboardClient({
         </div>
 
         {/* Tabs */}
-        <div style={{
-          display: 'flex', gap: '4px', marginBottom: '24px',
-          background: '#0d0d0d', padding: '4px', borderRadius: '10px',
-          border: '1px solid #1f1f1f', width: 'fit-content',
-        }}>
+        <div className="tab-bar" style={{ marginBottom: '24px' }}>
           {(['links', 'profile', 'preview', 'qr', 'orders'] as Tab[]).map(t => (
-            <button key={t} style={tabStyle(tab === t)} onClick={() => setTab(t)}>
+            <button key={t} style={{ ...tabStyle(tab === t), whiteSpace: 'nowrap' }} onClick={() => setTab(t)}>
               {t === 'qr' ? 'QR Code' : t === 'preview' ? '👁 Preview' : t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
           ))}

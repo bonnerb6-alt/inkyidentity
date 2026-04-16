@@ -205,6 +205,40 @@ input::placeholder, textarea::placeholder {
   padding: 24px;
 }
 
+/* ── Responsive nav ── */
+.nav-mobile { display: none !important; }
+.nav-desktop { display: flex !important; }
+
+@media (max-width: 600px) {
+  .nav-mobile { display: flex !important; }
+  .nav-desktop { display: none !important; }
+}
+
+/* ── Dashboard tab scroll ── */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  background: #0d0d0d;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid #1f1f1f;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+
+/* ── Dashboard header mobile ── */
+.dash-header-actions { display: flex; align-items: center; gap: 16px; }
+.dash-header-secondary { display: flex; }
+
+@media (max-width: 600px) {
+  .dash-header-secondary { display: none !important; }
+  .dash-header-actions { gap: 10px; }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
