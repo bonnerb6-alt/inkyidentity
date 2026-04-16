@@ -12,7 +12,7 @@ export default async function Home() {
       <NavClient isLoggedIn={!!session} />
 
       {/* ── Hero ── */}
-      <section style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section className="hero-section" style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
 
         {/* Mesh background */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
@@ -39,7 +39,7 @@ export default async function Home() {
           </svg>
         </div>
 
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: '1100px', margin: '0 auto', padding: '80px 24px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '64px', alignItems: 'center' }}>
+        <div className="hero-grid">
 
           {/* Left: copy */}
           <div>
@@ -72,7 +72,7 @@ export default async function Home() {
               A QR code tattoo linked to a profile you control. Change your links, bio, and look — your ink stays the same.
             </p>
 
-            <div className="animate-fade-in-up-4" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <div className="animate-fade-in-up-4 hero-buttons" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <Link href="/auth/signup" className="btn-primary" style={{
                 textDecoration: 'none', fontSize: '1rem', padding: '14px 28px',
                 boxShadow: '0 0 40px rgba(124,58,237,0.5)',
@@ -85,7 +85,7 @@ export default async function Home() {
             </div>
 
             {/* Trust badges */}
-            <div className="animate-fade-in-up-4" style={{ display: 'flex', gap: '24px', marginTop: '40px', flexWrap: 'wrap' }}>
+            <div className="animate-fade-in-up-4 hero-badges" style={{ display: 'flex', gap: '24px', marginTop: '40px', flexWrap: 'wrap' }}>
               {['Free profile', 'Instant updates', 'Ships worldwide'].map((t) => (
                 <div key={t} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', color: '#6b7280' }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -98,8 +98,8 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Right: hero visual */}
-          <div className="animate-float" style={{ display: 'flex', justifyContent: 'center' }}>
+          {/* Right: hero visual — hidden on mobile via CSS */}
+          <div className="hero-visual animate-float">
             <HeroVisual />
           </div>
         </div>
