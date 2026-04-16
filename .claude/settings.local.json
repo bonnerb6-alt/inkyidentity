@@ -59,7 +59,9 @@
       "Bash(git push *)",
       "Bash(curl *)",
       "Bash(gh repo *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Read(//c/Users/bonne/.ssh/**)",
+      "Bash(npm run *)"
     ]
   }
 }
