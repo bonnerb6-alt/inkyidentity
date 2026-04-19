@@ -6,7 +6,7 @@ import { detectPlatform, getPlatformById } from '@/lib/platforms';
 
 function InlinePlatformIcon({ platformId, size = 20 }: { platformId: string; size?: number }) {
   const platform = getPlatformById(platformId);
-  const bg = ['#ffffff', '#FFFC00', '#FFDD00'].includes(platform.color) ? '#1a1a1a' : platform.color + '22';
+  const bg = ['#ffffff', '#FFFC00', '#FFDD00'].includes(platform.color) ? 'var(--ink-2)' : platform.color + '22';
   const iconColor = platform.color === '#000000' ? '#ffffff' : platform.color;
   return (
     <div style={{
@@ -157,14 +157,14 @@ export default function DashboardClient({
   }
 
   const cardStyle: React.CSSProperties = {
-    background: '#111', border: '1px solid #1f1f1f', borderRadius: '12px',
+    background: 'var(--ink-1)', border: '1px solid var(--ink-3)', borderRadius: '12px',
   };
 
   const tabStyle = (active: boolean): React.CSSProperties => ({
     padding: '8px 16px', borderRadius: '8px', cursor: 'pointer',
     fontSize: '0.875rem', fontWeight: 500, border: 'none',
-    background: active ? 'rgba(124, 58, 237, 0.15)' : 'transparent',
-    color: active ? '#a78bfa' : '#6b7280',
+    background: active ? 'var(--carmine-tint)' : 'transparent',
+    color: active ? 'var(--carmine-soft)' : 'var(--paper-3)',
     transition: 'all 0.15s',
   });
 
@@ -174,10 +174,10 @@ export default function DashboardClient({
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', color: '#f9fafb' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)' }}>
       {/* Header */}
       <header style={{
-        borderBottom: '1px solid #1f1f1f', padding: '0 24px', height: '60px',
+        borderBottom: '1px solid var(--ink-3)', padding: '0 24px', height: '60px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         position: 'sticky', top: 0, zIndex: 40,
         background: 'rgba(8,8,8,0.95)', backdropFilter: 'blur(10px)',
@@ -186,11 +186,11 @@ export default function DashboardClient({
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{
               width: '28px', height: '28px', borderRadius: '7px',
-              background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+              background: 'var(--carmine)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 800, fontSize: '14px', color: 'white',
             }}>I</div>
-            <span style={{ color: '#f9fafb', fontWeight: 700, fontSize: '1rem' }}>InkyIdentity</span>
+            <span style={{ color: 'var(--paper)', fontWeight: 700, fontSize: '1rem' }}>InkyIdentity</span>
           </Link>
         </div>
         <div className="dash-header-actions">
@@ -198,7 +198,7 @@ export default function DashboardClient({
             href={`/u/${user.display_id}`}
             target="_blank"
             className="dash-header-secondary"
-            style={{ color: '#6b7280', fontSize: '0.875rem', textDecoration: 'none', alignItems: 'center' }}
+            style={{ color: 'var(--paper-3)', fontSize: '0.875rem', textDecoration: 'none', alignItems: 'center' }}
           >
             ↗ View profile
           </Link>
@@ -215,15 +215,15 @@ export default function DashboardClient({
           </Link>
           <div style={{
             width: '32px', height: '32px', borderRadius: '50%',
-            background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+            background: 'var(--carmine)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 700, fontSize: '14px', cursor: 'pointer', flexShrink: 0,
           }} title={user.username}>
             {user.username[0].toUpperCase()}
           </div>
           <button onClick={logout} style={{
-            background: 'transparent', border: '1px solid #2a2a2a', borderRadius: '7px',
-            color: '#6b7280', padding: '6px 12px', fontSize: '0.8rem', cursor: 'pointer', whiteSpace: 'nowrap',
+            background: 'transparent', border: '1px solid var(--ink-3)', borderRadius: '7px',
+            color: 'var(--paper-3)', padding: '6px 12px', fontSize: '0.8rem', cursor: 'pointer', whiteSpace: 'nowrap',
           }}>
             Sign out
           </button>
@@ -237,7 +237,7 @@ export default function DashboardClient({
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '4px' }}>
             Hey, @{user.username}
           </h1>
-          <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--paper-3)', fontSize: '0.9rem' }}>
             Manage your links, profile, and QR tattoo.
           </p>
         </div>
@@ -253,10 +253,10 @@ export default function DashboardClient({
             { label: 'Total orders', value: String(orders.length) },
           ].map((s, i) => (
             <div key={i} style={{ ...cardStyle, padding: '16px 20px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '4px' }}>{s.label}</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--paper-3)', marginBottom: '4px' }}>{s.label}</div>
               <div style={{
                 fontWeight: 700, fontSize: s.small ? '0.9rem' : '1.5rem',
-                color: s.small ? '#a78bfa' : '#f9fafb',
+                color: s.small ? 'var(--carmine-soft)' : 'var(--paper)',
               }}>{s.value}</div>
             </div>
           ))}
@@ -317,7 +317,7 @@ export default function DashboardClient({
                 {detectedPlatform !== 'website' && (
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '8px',
-                    fontSize: '0.8rem', color: '#a78bfa',
+                    fontSize: '0.8rem', color: 'var(--carmine-soft)',
                   }}>
                     <InlinePlatformIcon platformId={detectedPlatform} size={14} />
                     Detected: {getPlatformById(detectedPlatform).name}
@@ -328,7 +328,7 @@ export default function DashboardClient({
 
             {/* Links list */}
             {links.length === 0 ? (
-              <div style={{ ...cardStyle, padding: '48px', textAlign: 'center', color: '#4b5563' }}>
+              <div style={{ ...cardStyle, padding: '48px', textAlign: 'center', color: 'var(--paper-4)' }}>
                 <div style={{ fontSize: '2rem', marginBottom: '12px' }}>↗</div>
                 <p>No links yet. Add your first link above.</p>
               </div>
@@ -365,7 +365,7 @@ export default function DashboardClient({
                         <InlinePlatformIcon platformId={link.icon || 'website'} size={18} />
                         <div style={{ flex: 1 }}>
                           <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>{link.title}</div>
-                          <div style={{ color: '#6b7280', fontSize: '0.8rem', marginTop: '2px' }}>
+                          <div style={{ color: 'var(--paper-3)', fontSize: '0.8rem', marginTop: '2px' }}>
                             {link.url.length > 60 ? link.url.slice(0, 60) + '…' : link.url}
                           </div>
                         </div>
@@ -375,7 +375,7 @@ export default function DashboardClient({
                             style={{
                               background: link.active ? 'rgba(16, 185, 129, 0.15)' : 'rgba(107, 114, 128, 0.15)',
                               border: `1px solid ${link.active ? 'rgba(16, 185, 129, 0.3)' : 'rgba(107, 114, 128, 0.3)'}`,
-                              color: link.active ? '#34d399' : '#6b7280',
+                              color: link.active ? '#34d399' : 'var(--paper-3)',
                               borderRadius: '6px', padding: '4px 10px',
                               fontSize: '0.75rem', cursor: 'pointer',
                             }}
@@ -385,8 +385,8 @@ export default function DashboardClient({
                           <button
                             onClick={() => { setEditingId(link.id); setEditData({ title: link.title, url: link.url, icon: link.icon || 'website' }); }}
                             style={{
-                              background: 'transparent', border: '1px solid #2a2a2a',
-                              color: '#9ca3af', borderRadius: '6px', padding: '4px 10px',
+                              background: 'transparent', border: '1px solid var(--ink-3)',
+                              color: 'var(--paper-2)', borderRadius: '6px', padding: '4px 10px',
                               fontSize: '0.75rem', cursor: 'pointer',
                             }}
                           >
@@ -424,9 +424,9 @@ export default function DashboardClient({
                   {/* Avatar preview */}
                   <div style={{
                     width: '80px', height: '80px', borderRadius: '50%', flexShrink: 0,
-                    background: profileForm.avatar_url ? 'transparent' : 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                    background: profileForm.avatar_url ? 'transparent' : 'var(--carmine)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    overflow: 'hidden', border: '2px solid #2a2a2a',
+                    overflow: 'hidden', border: '2px solid var(--ink-3)',
                     fontSize: '28px', fontWeight: 700, color: 'white',
                   }}>
                     {profileForm.avatar_url
@@ -438,9 +438,9 @@ export default function DashboardClient({
                   <div style={{ flex: 1 }}>
                     <label style={{
                       display: 'inline-flex', alignItems: 'center', gap: '8px',
-                      background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: '8px',
+                      background: 'var(--ink-2)', border: '1px solid var(--ink-3)', borderRadius: '8px',
                       padding: '9px 16px', cursor: 'pointer', fontSize: '0.875rem',
-                      color: '#d1d5db', fontWeight: 500, marginBottom: '8px',
+                      color: 'var(--paper-2)', fontWeight: 500, marginBottom: '8px',
                       transition: 'border-color 0.2s',
                     }}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -460,13 +460,13 @@ export default function DashboardClient({
                         onClick={() => setProfileForm(f => ({ ...f, avatar_url: '' }))}
                         style={{
                           display: 'block', background: 'transparent', border: 'none',
-                          color: '#6b7280', fontSize: '0.78rem', cursor: 'pointer', padding: 0,
+                          color: 'var(--paper-3)', fontSize: '0.78rem', cursor: 'pointer', padding: 0,
                         }}
                       >
                         Remove photo
                       </button>
                     )}
-                    <p style={{ fontSize: '0.75rem', color: '#4b5563', marginTop: '4px' }}>JPG, PNG or GIF · Auto-cropped to square</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--paper-4)', marginTop: '4px' }}>JPG, PNG or GIF · Auto-cropped to square</p>
                   </div>
                 </div>
               </div>
@@ -475,11 +475,11 @@ export default function DashboardClient({
               <div style={{ ...cardStyle, padding: '24px', marginBottom: '16px' }}>
                 <h2 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '20px' }}>Profile info</h2>
                 <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
                     Username
                   </label>
                   <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#4b5563' }}>@</span>
+                    <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--paper-4)' }}>@</span>
                     <input
                       value={profileForm.username}
                       onChange={e => setProfileForm({ ...profileForm, username: e.target.value })}
@@ -490,7 +490,7 @@ export default function DashboardClient({
                   </div>
                 </div>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
                     Bio
                   </label>
                   <textarea
@@ -501,7 +501,7 @@ export default function DashboardClient({
                     maxLength={200}
                     style={{ resize: 'vertical' }}
                   />
-                  <p style={{ fontSize: '0.75rem', color: '#4b5563', marginTop: '4px' }}>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--paper-4)', marginTop: '4px' }}>
                     {profileForm.bio.length}/200
                   </p>
                 </div>
@@ -522,7 +522,7 @@ export default function DashboardClient({
                     </div>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>WhatsApp button</div>
-                      <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Show a &quot;Message me&quot; button on your profile</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--paper-3)' }}>Show a &quot;Message me&quot; button on your profile</div>
                     </div>
                   </div>
                   <button
@@ -531,7 +531,7 @@ export default function DashboardClient({
                     style={{
                       width: '44px', height: '24px', borderRadius: '12px', border: 'none',
                       cursor: 'pointer', position: 'relative', flexShrink: 0,
-                      background: profileForm.whatsapp_enabled ? '#25D366' : '#2a2a2a',
+                      background: profileForm.whatsapp_enabled ? '#25D366' : 'var(--ink-3)',
                       transition: 'background 0.2s',
                     }}
                   >
@@ -544,7 +544,7 @@ export default function DashboardClient({
                   </button>
                 </div>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.8rem', fontWeight: 500, color: '#d1d5db' }}>
+                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.8rem', fontWeight: 500, color: 'var(--paper-2)' }}>
                     WhatsApp number
                   </label>
                   <input
@@ -553,7 +553,7 @@ export default function DashboardClient({
                     value={profileForm.whatsapp_number}
                     onChange={e => setProfileForm(f => ({ ...f, whatsapp_number: e.target.value }))}
                   />
-                  <p style={{ fontSize: '0.72rem', color: '#4b5563', marginTop: '5px' }}>
+                  <p style={{ fontSize: '0.72rem', color: 'var(--paper-4)', marginTop: '5px' }}>
                     Include country code, e.g. +44 for UK, +1 for US.
                   </p>
                 </div>
@@ -561,14 +561,14 @@ export default function DashboardClient({
 
               {/* Profile link */}
               <div style={{ ...cardStyle, padding: '20px', marginBottom: '24px' }}>
-                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '8px', color: '#9ca3af' }}>Your profile link</h3>
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '8px', color: 'var(--paper-2)' }}>Your profile link</h3>
                 <div style={{
-                  background: '#0d0d0d', border: '1px solid #2a2a2a', borderRadius: '8px',
-                  padding: '10px 14px', fontFamily: 'monospace', fontSize: '0.85rem', color: '#a78bfa',
+                  background: 'var(--ink-1)', border: '1px solid var(--ink-3)', borderRadius: '8px',
+                  padding: '10px 14px', fontFamily: 'monospace', fontSize: '0.85rem', color: 'var(--carmine-soft)',
                 }}>
                   /u/{user.display_id}
                 </div>
-                <p style={{ fontSize: '0.75rem', color: '#4b5563', marginTop: '8px' }}>
+                <p style={{ fontSize: '0.75rem', color: 'var(--paper-4)', marginTop: '8px' }}>
                   This ID never changes. Your username is an alias — update it freely.
                 </p>
               </div>
@@ -593,7 +593,7 @@ export default function DashboardClient({
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '4px' }}>Profile preview</h2>
-                <p style={{ color: '#6b7280', fontSize: '0.85rem' }}>This is exactly what people see when they scan your QR code.</p>
+                <p style={{ color: 'var(--paper-3)', fontSize: '0.85rem' }}>This is exactly what people see when they scan your QR code.</p>
               </div>
               <Link
                 href={`/u/${user.display_id}`}
@@ -609,26 +609,26 @@ export default function DashboardClient({
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{
                 width: '375px',
-                background: '#1a1a1a',
+                background: 'var(--ink-2)',
                 borderRadius: '44px',
                 padding: '14px',
-                boxShadow: '0 0 0 1px #2a2a2a, 0 0 60px rgba(124, 58, 237, 0.2), 0 40px 80px rgba(0,0,0,0.6)',
+                boxShadow: '0 0 0 1px var(--ink-3), 0 0 60px var(--carmine-tint), 0 40px 80px rgba(0,0,0,0.6)',
                 position: 'relative',
               }}>
                 {/* Phone notch */}
                 <div style={{
-                  width: '120px', height: '28px', background: '#111',
+                  width: '120px', height: '28px', background: 'var(--ink-1)',
                   borderRadius: '14px', margin: '0 auto 10px',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
                 }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#2a2a2a' }} />
-                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#2a2a2a' }} />
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--ink-3)' }} />
+                  <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--ink-3)' }} />
                 </div>
 
                 {/* Screen */}
                 <div style={{
                   borderRadius: '32px', overflow: 'hidden',
-                  height: '680px', background: '#080808', position: 'relative',
+                  height: '680px', background: 'var(--ink-0)', position: 'relative',
                 }}>
                   <iframe
                     src={`/u/${user.display_id}`}
@@ -642,13 +642,13 @@ export default function DashboardClient({
 
                 {/* Home indicator */}
                 <div style={{
-                  width: '120px', height: '4px', background: '#2a2a2a',
+                  width: '120px', height: '4px', background: 'var(--ink-3)',
                   borderRadius: '2px', margin: '10px auto 0',
                 }} />
               </div>
             </div>
 
-            <p style={{ textAlign: 'center', color: '#4b5563', fontSize: '0.8rem', marginTop: '20px' }}>
+            <p style={{ textAlign: 'center', color: 'var(--paper-4)', fontSize: '0.8rem', marginTop: '20px' }}>
               Changes to your links and profile update instantly — no QR reprint needed.
             </p>
           </div>
@@ -659,7 +659,7 @@ export default function DashboardClient({
           <div style={{ maxWidth: '500px' }}>
             <div style={{ ...cardStyle, padding: '40px', textAlign: 'center' }}>
               <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>Your QR code</h2>
-              <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '32px' }}>
+              <p style={{ color: 'var(--paper-3)', fontSize: '0.875rem', marginBottom: '32px' }}>
                 This QR code is permanent. It will always link to your profile.
               </p>
               {qrData ? (
@@ -667,16 +667,16 @@ export default function DashboardClient({
                   <div style={{
                     background: 'white', borderRadius: '16px', padding: '20px',
                     display: 'inline-block', marginBottom: '24px',
-                    boxShadow: '0 0 40px rgba(124, 58, 237, 0.3)',
+                    boxShadow: '0 0 40px color-mix(in oklch, var(--carmine) 30%, transparent)',
                   }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={qrData.dataUrl} alt="Your QR Code" width={240} height={240} />
                   </div>
                   <div style={{ marginBottom: '24px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '6px' }}>Links to:</div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--paper-3)', marginBottom: '6px' }}>Links to:</div>
                     <div style={{
-                      background: '#0d0d0d', borderRadius: '8px', padding: '8px 14px',
-                      fontFamily: 'monospace', fontSize: '0.8rem', color: '#a78bfa', wordBreak: 'break-all',
+                      background: 'var(--ink-1)', borderRadius: '8px', padding: '8px 14px',
+                      fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--carmine-soft)', wordBreak: 'break-all',
                     }}>
                       {qrData.profileUrl}
                     </div>
@@ -696,7 +696,7 @@ export default function DashboardClient({
                   </div>
                 </>
               ) : (
-                <div style={{ padding: '40px', color: '#4b5563' }}>Generating QR code…</div>
+                <div style={{ padding: '40px', color: 'var(--paper-4)' }}>Generating QR code…</div>
               )}
             </div>
           </div>
@@ -712,7 +712,7 @@ export default function DashboardClient({
               </Link>
             </div>
             {orders.length === 0 ? (
-              <div style={{ ...cardStyle, padding: '48px', textAlign: 'center', color: '#4b5563' }}>
+              <div style={{ ...cardStyle, padding: '48px', textAlign: 'center', color: 'var(--paper-4)' }}>
                 <div style={{ fontSize: '2rem', marginBottom: '12px' }}>◎</div>
                 <p style={{ marginBottom: '16px' }}>No orders yet.</p>
                 <Link href="/order" className="btn-primary" style={{ textDecoration: 'none' }}>
@@ -730,7 +730,7 @@ export default function DashboardClient({
                   return (
                     <div key={order.id} style={{ ...cardStyle, padding: '18px 20px', display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
                       <div style={{
-                        width: '40px', height: '40px', borderRadius: '8px', background: '#1a1a1a',
+                        width: '40px', height: '40px', borderRadius: '8px', background: 'var(--ink-2)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: '1.2rem', flexShrink: 0,
                       }}>{icon}</div>
@@ -738,14 +738,14 @@ export default function DashboardClient({
                         <div style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: '3px' }}>
                           {label} — {order.size}{variant ? ` / ${variant}` : ''} × {order.quantity}
                         </div>
-                        <div style={{ fontSize: '0.78rem', color: '#6b7280' }}>
+                        <div style={{ fontSize: '0.78rem', color: 'var(--paper-3)' }}>
                           Order #{order.id} · {new Date(order.created_at * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </div>
                       </div>
                       <span style={{
-                        background: `${statusColors[order.status] || '#6b7280'}20`,
-                        border: `1px solid ${statusColors[order.status] || '#6b7280'}50`,
-                        color: statusColors[order.status] || '#6b7280',
+                        background: `${statusColors[order.status] || 'var(--paper-3)'}20`,
+                        border: `1px solid ${statusColors[order.status] || 'var(--paper-3)'}50`,
+                        color: statusColors[order.status] || 'var(--paper-3)',
                         borderRadius: '100px', padding: '4px 12px',
                         fontSize: '0.75rem', fontWeight: 600, textTransform: 'capitalize',
                       }}>

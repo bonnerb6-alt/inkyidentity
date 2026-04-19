@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function OrderSuccessPage() {
   return (
     <div style={{
-      minHeight: '100vh', background: '#080808', color: '#f9fafb',
+      minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px',
     }}>
       <div style={{ textAlign: 'center', maxWidth: '440px' }}>
@@ -17,10 +17,10 @@ export default function OrderSuccessPage() {
         <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '14px' }}>
           Payment confirmed!
         </h1>
-        <p style={{ color: '#9ca3af', lineHeight: 1.7, marginBottom: '8px' }}>
+        <p style={{ color: 'var(--paper-2)', lineHeight: 1.7, marginBottom: '8px' }}>
           Your order has been paid and sent to production. We&apos;ll email you a tracking link when it ships.
         </p>
-        <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '36px' }}>
+        <p style={{ color: 'var(--paper-3)', fontSize: '0.875rem', marginBottom: '36px' }}>
           Usually dispatches within 2–3 business days.
         </p>
 

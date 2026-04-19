@@ -21,13 +21,13 @@ function TattooIcon() {
   return (
     <svg viewBox="0 0 40 40" width="36" height="36">
       <rect x="2" y="2" width="12" height="12" rx="1.5" fill="currentColor" />
-      <rect x="4" y="4" width="8" height="8" rx="0.5" fill="#111" />
+      <rect x="4" y="4" width="8" height="8" rx="0.5" fill="var(--ink-1)" />
       <rect x="5.5" y="5.5" width="5" height="5" rx="0.5" fill="currentColor" />
       <rect x="26" y="2" width="12" height="12" rx="1.5" fill="currentColor" />
-      <rect x="28" y="4" width="8" height="8" rx="0.5" fill="#111" />
+      <rect x="28" y="4" width="8" height="8" rx="0.5" fill="var(--ink-1)" />
       <rect x="29.5" y="5.5" width="5" height="5" rx="0.5" fill="currentColor" />
       <rect x="2" y="26" width="12" height="12" rx="1.5" fill="currentColor" />
-      <rect x="4" y="28" width="8" height="8" rx="0.5" fill="#111" />
+      <rect x="4" y="28" width="8" height="8" rx="0.5" fill="var(--ink-1)" />
       <rect x="5.5" y="29.5" width="5" height="5" rx="0.5" fill="currentColor" />
       <rect x="16" y="2" width="3" height="3" fill="currentColor" />
       <rect x="21" y="5" width="3" height="3" fill="currentColor" />
@@ -47,7 +47,7 @@ function MugIcon() {
     <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
       <rect x="6" y="10" width="22" height="22" rx="3" fill="currentColor" />
       <path d="M28 16 Q36 16 36 22 Q36 28 28 28" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <rect x="10" y="14" width="10" height="10" rx="1" fill="#111" opacity="0.3" />
+      <rect x="10" y="14" width="10" height="10" rx="1" fill="var(--ink-1)" opacity="0.3" />
       <rect x="11.5" y="15.5" width="7" height="7" rx="0.5" fill="currentColor" opacity="0.35" />
       <rect x="6" y="32" width="22" height="2.5" rx="1.25" fill="currentColor" opacity="0.5" />
     </svg>
@@ -60,7 +60,7 @@ function TshirtIcon() {
       <path d="M14 6 L6 12 L10 16 L10 34 L30 34 L30 16 L34 12 L26 6 C26 6 24 10 20 10 C16 10 14 6 14 6Z" fill="currentColor" />
       <path d="M14 6 L6 12 L10 16 L10 12 Z" fill="currentColor" opacity="0.6" />
       <path d="M26 6 L34 12 L30 16 L30 12 Z" fill="currentColor" opacity="0.6" />
-      <rect x="15" y="18" width="10" height="10" rx="1" fill="#111" opacity="0.25" />
+      <rect x="15" y="18" width="10" height="10" rx="1" fill="var(--ink-1)" opacity="0.25" />
       <rect x="16.5" y="19.5" width="7" height="7" rx="0.5" fill="currentColor" opacity="0.3" />
     </svg>
   );
@@ -133,44 +133,44 @@ export default function OrderClient({
   }
 
   const card = (active: boolean): React.CSSProperties => ({
-    background: active ? 'rgba(124, 58, 237, 0.08)' : '#111',
-    border: `2px solid ${active ? '#7c3aed' : '#1f1f1f'}`,
-    borderRadius: '12px', cursor: 'pointer', transition: 'all 0.15s', color: '#f9fafb',
+    background: active ? 'var(--carmine-tint)' : 'var(--ink-1)',
+    border: `2px solid ${active ? 'var(--carmine)' : 'var(--ink-3)'}`,
+    borderRadius: '12px', cursor: 'pointer', transition: 'all 0.15s', color: 'var(--paper)',
   });
 
   const stepDot = (n: number) => ({
     width: '28px', height: '28px', borderRadius: '50%',
-    background: step >= n ? '#7c3aed' : '#1f1f1f',
-    border: `2px solid ${step >= n ? '#7c3aed' : '#2a2a2a'}`,
+    background: step >= n ? 'var(--carmine)' : 'var(--ink-3)',
+    border: `2px solid ${step >= n ? 'var(--carmine)' : 'var(--ink-3)'}`,
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontSize: '0.8rem', fontWeight: 700, color: step >= n ? 'white' : '#4b5563',
+    fontSize: '0.8rem', fontWeight: 700, color: step >= n ? 'white' : 'var(--paper-4)',
   } as React.CSSProperties);
 
   const STEPS = ['Product', 'Options', 'Delivery'];
 
   if (!product) {
     return (
-      <div style={{ minHeight: '100vh', background: '#080808', color: '#f9fafb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ color: '#6b7280' }}>No products are currently available.</p>
+      <div style={{ minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ color: 'var(--paper-3)' }}>No products are currently available.</p>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', color: '#f9fafb' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)' }}>
       {/* Header */}
       <header style={{
-        borderBottom: '1px solid #1f1f1f', padding: '0 24px', height: '60px',
+        borderBottom: '1px solid var(--ink-3)', padding: '0 24px', height: '60px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: 'rgba(8,8,8,0.95)',
       }}>
-        <Link href="/dashboard" style={{ textDecoration: 'none', color: '#6b7280', fontSize: '0.875rem' }}>
+        <Link href="/dashboard" style={{ textDecoration: 'none', color: 'var(--paper-3)', fontSize: '0.875rem' }}>
           ← Back to dashboard
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
             width: '28px', height: '28px', borderRadius: '7px',
-            background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+            background: 'var(--carmine)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 800, fontSize: '14px', color: 'white',
           }}>I</div>
@@ -186,9 +186,9 @@ export default function OrderClient({
             {STEPS.map((label, i) => (
               <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <div style={stepDot(i + 1)}>{i + 1}</div>
-                <span style={{ fontSize: '0.8rem', color: step >= i + 1 ? '#f9fafb' : '#4b5563' }}>{label}</span>
+                <span style={{ fontSize: '0.8rem', color: step >= i + 1 ? 'var(--paper)' : 'var(--paper-4)' }}>{label}</span>
                 {i < STEPS.length - 1 && (
-                  <div style={{ width: '24px', height: '1px', background: step > i + 1 ? '#7c3aed' : '#2a2a2a', margin: '0 4px' }} />
+                  <div style={{ width: '24px', height: '1px', background: step > i + 1 ? 'var(--carmine)' : 'var(--ink-3)', margin: '0 4px' }} />
                 )}
               </div>
             ))}
@@ -201,7 +201,7 @@ export default function OrderClient({
             <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>
               What would you like?
             </h1>
-            <p style={{ color: '#6b7280', marginBottom: '32px' }}>
+            <p style={{ color: 'var(--paper-3)', marginBottom: '32px' }}>
               Your QR code is printed on every product — scan it and it links straight to your profile.
             </p>
 
@@ -219,20 +219,20 @@ export default function OrderClient({
                 >
                   <div style={{
                     width: '60px', height: '60px', borderRadius: '12px', flexShrink: 0,
-                    background: productId === p.id ? 'rgba(124, 58, 237, 0.15)' : '#1a1a1a',
+                    background: productId === p.id ? 'var(--carmine-tint)' : 'var(--ink-2)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: productId === p.id ? '#a78bfa' : '#6b7280',
+                    color: productId === p.id ? 'var(--carmine-soft)' : 'var(--paper-3)',
                     transition: 'all 0.15s',
                   }}>
                     <ProductIcon iconType={p.icon_type} />
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: '4px' }}>{p.name}</div>
-                    <div style={{ fontSize: '0.85rem', color: '#9ca3af' }}>{p.tagline}</div>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--paper-2)' }}>{p.tagline}</div>
                   </div>
                   <div style={{
                     fontSize: '1.1rem', fontWeight: 700,
-                    color: productId === p.id ? '#a78bfa' : '#6b7280',
+                    color: productId === p.id ? 'var(--carmine-soft)' : 'var(--paper-3)',
                   }}>
                     from £{Math.min(...p.options.map(o => o.price)).toFixed(2).replace(/\.00$/, '')}
                   </div>
@@ -256,11 +256,11 @@ export default function OrderClient({
             <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>
               {product.name}
             </h1>
-            <p style={{ color: '#6b7280', marginBottom: '28px' }}>{product.tagline}</p>
+            <p style={{ color: 'var(--paper-3)', marginBottom: '28px' }}>{product.tagline}</p>
 
             {/* Size / option */}
             <div style={{ marginBottom: '24px' }}>
-              <label style={{ display: 'block', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 600, color: '#d1d5db' }}>
+              <label style={{ display: 'block', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 600, color: 'var(--paper-2)' }}>
                 {product.option_label}
               </label>
               {product.options.length > 3 ? (
@@ -272,14 +272,14 @@ export default function OrderClient({
                       onClick={() => setSize(o.id)}
                       style={{
                         padding: '10px 20px', borderRadius: '8px', cursor: 'pointer',
-                        background: size === o.id ? 'rgba(124, 58, 237, 0.15)' : '#111',
-                        border: `2px solid ${size === o.id ? '#7c3aed' : '#1f1f1f'}`,
-                        color: '#f9fafb', fontWeight: 600, fontSize: '0.9rem',
+                        background: size === o.id ? 'var(--carmine-tint)' : 'var(--ink-1)',
+                        border: `2px solid ${size === o.id ? 'var(--carmine)' : 'var(--ink-3)'}`,
+                        color: 'var(--paper)', fontWeight: 600, fontSize: '0.9rem',
                         transition: 'all 0.15s',
                       }}
                     >
                       <div>{o.label}</div>
-                      {o.detail && <div style={{ fontSize: '0.7rem', color: '#6b7280', marginTop: '2px' }}>{o.detail}</div>}
+                      {o.detail && <div style={{ fontSize: '0.7rem', color: 'var(--paper-3)', marginTop: '2px' }}>{o.detail}</div>}
                     </button>
                   ))}
                 </div>
@@ -299,9 +299,9 @@ export default function OrderClient({
                     >
                       <div>
                         <div style={{ fontWeight: 600 }}>{o.label}</div>
-                        {o.detail && <div style={{ fontSize: '0.8rem', color: '#9ca3af' }}>{o.detail}</div>}
+                        {o.detail && <div style={{ fontSize: '0.8rem', color: 'var(--paper-2)' }}>{o.detail}</div>}
                       </div>
-                      <div style={{ fontWeight: 700, color: size === o.id ? '#a78bfa' : '#6b7280' }}>£{o.price.toFixed(2).replace(/\.00$/, '')}</div>
+                      <div style={{ fontWeight: 700, color: size === o.id ? 'var(--carmine-soft)' : 'var(--paper-3)' }}>£{o.price.toFixed(2).replace(/\.00$/, '')}</div>
                     </button>
                   ))}
                 </div>
@@ -311,7 +311,7 @@ export default function OrderClient({
             {/* Colour picker */}
             {product.has_colour && product.colours.length > 0 && (
               <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 600, color: '#d1d5db' }}>
+                <label style={{ display: 'block', marginBottom: '12px', fontSize: '0.875rem', fontWeight: 600, color: 'var(--paper-2)' }}>
                   Colour
                 </label>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
@@ -323,16 +323,16 @@ export default function OrderClient({
                       style={{
                         display: 'flex', alignItems: 'center', gap: '8px',
                         padding: '8px 14px', borderRadius: '8px', cursor: 'pointer',
-                        background: colour === c.id ? 'rgba(124, 58, 237, 0.12)' : '#111',
-                        border: `2px solid ${colour === c.id ? '#7c3aed' : '#1f1f1f'}`,
-                        color: '#f9fafb', fontSize: '0.85rem', fontWeight: 500,
+                        background: colour === c.id ? 'var(--carmine-tint)' : 'var(--ink-1)',
+                        border: `2px solid ${colour === c.id ? 'var(--carmine)' : 'var(--ink-3)'}`,
+                        color: 'var(--paper)', fontSize: '0.85rem', fontWeight: 500,
                         transition: 'all 0.15s',
                       }}
                     >
                       <span style={{
                         width: '16px', height: '16px', borderRadius: '50%',
                         background: c.hex,
-                        border: c.hex === '#f9fafb' ? '1px solid #3a3a3a' : 'none',
+                        border: c.hex === 'var(--paper)' ? '1px solid #3a3a3a' : 'none',
                         flexShrink: 0,
                       }} />
                       {c.label}
@@ -344,7 +344,7 @@ export default function OrderClient({
 
             {/* Quantity */}
             <div style={{ marginBottom: '32px' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 600, color: '#d1d5db' }}>
+              <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 600, color: 'var(--paper-2)' }}>
                 Quantity
               </label>
               <select
@@ -358,17 +358,17 @@ export default function OrderClient({
 
             {/* Summary pill */}
             <div style={{
-              background: '#111', border: '1px solid #1f1f1f', borderRadius: '10px',
+              background: 'var(--ink-1)', border: '1px solid var(--ink-3)', borderRadius: '10px',
               padding: '14px 20px', marginBottom: '24px',
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             }}>
-              <span style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
+              <span style={{ color: 'var(--paper-2)', fontSize: '0.875rem' }}>
                 {product.name}
                 {size ? ` — ${size}` : ''}
                 {colour ? ` / ${product.colours.find(c => c.id === colour)?.label ?? colour}` : ''}
                 {` × ${quantity}`}
               </span>
-              <span style={{ fontWeight: 700, color: '#a78bfa' }}>£{total.toFixed(2)}</span>
+              <span style={{ fontWeight: 700, color: 'var(--carmine-soft)' }}>£{total.toFixed(2)}</span>
             </div>
 
             <div style={{ display: 'flex', gap: '10px' }}>
@@ -391,7 +391,7 @@ export default function OrderClient({
             <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>
               Delivery address
             </h1>
-            <p style={{ color: '#6b7280', marginBottom: '32px' }}>
+            <p style={{ color: 'var(--paper-3)', marginBottom: '32px' }}>
               We ship worldwide. Orders dispatch within 2–3 business days.
             </p>
 
@@ -405,25 +405,25 @@ export default function OrderClient({
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '28px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>Address line 1 *</label>
+                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>Address line 1 *</label>
                 <input placeholder="123 High Street" value={addr.line1} onChange={e => setAddr(a => ({ ...a, line1: e.target.value }))} />
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>Address line 2</label>
+                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>Address line 2</label>
                 <input placeholder="Flat 4 (optional)" value={addr.line2} onChange={e => setAddr(a => ({ ...a, line2: e.target.value }))} />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>City *</label>
+                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>City *</label>
                   <input placeholder="London" value={addr.city} onChange={e => setAddr(a => ({ ...a, city: e.target.value }))} />
                 </div>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>Postcode *</label>
+                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>Postcode *</label>
                   <input placeholder="EC1A 1BB" value={addr.postcode} onChange={e => setAddr(a => ({ ...a, postcode: e.target.value }))} />
                 </div>
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>Country *</label>
+                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>Country *</label>
                 <select value={addr.country} onChange={e => setAddr(a => ({ ...a, country: e.target.value }))}>
                   {[
                     ['GB','United Kingdom'],['US','United States'],['AU','Australia'],
@@ -438,33 +438,33 @@ export default function OrderClient({
 
             {/* Order summary */}
             <div style={{
-              background: '#111', border: '1px solid #1f1f1f', borderRadius: '12px',
+              background: 'var(--ink-1)', border: '1px solid var(--ink-3)', borderRadius: '12px',
               padding: '20px', marginBottom: '24px',
             }}>
-              <div style={{ fontSize: '0.8rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--paper-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
                 Order summary
               </div>
               <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '12px' }}>
                 <div style={{
-                  width: '44px', height: '44px', borderRadius: '8px', background: '#1a1a1a',
+                  width: '44px', height: '44px', borderRadius: '8px', background: 'var(--ink-2)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#a78bfa', flexShrink: 0,
+                  color: 'var(--carmine-soft)', flexShrink: 0,
                 }}>
                   <ProductIcon iconType={product.icon_type} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{product.name}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#9ca3af' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--paper-2)' }}>
                     {size}
                     {colour && product.has_colour && ` · ${product.colours.find(c => c.id === colour)?.label ?? colour}`}
                     {` · qty ${quantity}`}
                   </div>
                 </div>
-                <div style={{ fontWeight: 700, color: '#f9fafb' }}>£{unitPrice.toFixed(2)}</div>
+                <div style={{ fontWeight: 700, color: 'var(--paper)' }}>£{unitPrice.toFixed(2)}</div>
               </div>
-              <div style={{ borderTop: '1px solid #1f1f1f', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
+              <div style={{ borderTop: '1px solid var(--ink-3)', paddingTop: '12px', display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
                 <span>Total</span>
-                <span style={{ color: '#a78bfa' }}>£{total.toFixed(2)}</span>
+                <span style={{ color: 'var(--carmine-soft)' }}>£{total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -494,10 +494,10 @@ export default function OrderClient({
             <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>
               Order placed!
             </h1>
-            <p style={{ color: '#9ca3af', lineHeight: 1.7, maxWidth: '380px', margin: '0 auto 8px' }}>
-              Your <strong style={{ color: '#f9fafb' }}>{product.name}</strong> is being prepared.
+            <p style={{ color: 'var(--paper-2)', lineHeight: 1.7, maxWidth: '380px', margin: '0 auto 8px' }}>
+              Your <strong style={{ color: 'var(--paper)' }}>{product.name}</strong> is being prepared.
             </p>
-            <p style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '32px' }}>
+            <p style={{ color: 'var(--paper-3)', fontSize: '0.875rem', marginBottom: '32px' }}>
               Dispatches within 2–3 business days. We&apos;ll email you a tracking link.
             </p>
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>

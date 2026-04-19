@@ -28,21 +28,21 @@ export default function ForgotPasswordPage() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: '#080808', color: '#f9fafb',
+      minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px',
     }}>
       <div style={{ width: '100%', maxWidth: '400px' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{
             width: '48px', height: '48px', borderRadius: '12px', margin: '0 auto 16px',
-            background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+            background: 'var(--carmine)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 800, fontSize: '22px', color: 'white',
           }}>I</div>
           <h1 style={{ fontSize: '1.6rem', fontWeight: 800, letterSpacing: '-0.03em' }}>
             Forgot password?
           </h1>
-          <p style={{ color: '#6b7280', marginTop: '8px' }}>
+          <p style={{ color: 'var(--paper-3)', marginTop: '8px' }}>
             Enter your email and we&apos;ll send you a reset link.
           </p>
         </div>
@@ -54,10 +54,10 @@ export default function ForgotPasswordPage() {
           }}>
             <div style={{ fontSize: '2rem', marginBottom: '12px' }}>📧</div>
             <p style={{ color: '#6ee7b7', fontWeight: 600, marginBottom: '8px' }}>Check your inbox</p>
-            <p style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
-              If an account exists for <strong style={{ color: '#f9fafb' }}>{email}</strong>, you&apos;ll receive a reset link shortly.
+            <p style={{ color: 'var(--paper-2)', fontSize: '0.875rem' }}>
+              If an account exists for <strong style={{ color: 'var(--paper)' }}>{email}</strong>, you&apos;ll receive a reset link shortly.
             </p>
-            <Link href="/auth/login" style={{ display: 'inline-block', marginTop: '20px', color: '#a78bfa', fontSize: '0.875rem' }}>
+            <Link href="/auth/login" style={{ display: 'inline-block', marginTop: '20px', color: 'var(--carmine-soft)', fontSize: '0.875rem' }}>
               Back to login
             </Link>
           </div>
@@ -70,7 +70,7 @@ export default function ForgotPasswordPage() {
               }}>{error}</div>
             )}
             <div>
-              <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+              <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
                 Email address
               </label>
               <input
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
             >
               {loading ? 'Sending…' : 'Send reset link'}
             </button>
-            <Link href="/auth/login" style={{ textAlign: 'center', color: '#6b7280', fontSize: '0.875rem' }}>
+            <Link href="/auth/login" style={{ textAlign: 'center', color: 'var(--paper-3)', fontSize: '0.875rem' }}>
               Back to login
             </Link>
           </form>

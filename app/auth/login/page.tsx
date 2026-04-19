@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: '#080808', display: 'flex',
+      minHeight: '100vh', background: 'var(--ink-0)', display: 'flex',
       alignItems: 'center', justifyContent: 'center', padding: '24px',
     }}>
       <div style={{ width: '100%', maxWidth: '420px' }}>
@@ -40,23 +40,23 @@ export default function LoginPage() {
           <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
               width: '40px', height: '40px', borderRadius: '10px',
-              background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+              background: 'var(--carmine)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 800, fontSize: '20px', color: 'white',
             }}>I</div>
-            <span style={{ color: '#f9fafb', fontWeight: 700, fontSize: '1.25rem' }}>InkyIdentity</span>
+            <span style={{ color: 'var(--paper)', fontWeight: 700, fontSize: '1.25rem' }}>InkyIdentity</span>
           </Link>
         </div>
 
         {/* Card */}
         <div style={{
-          background: '#111', border: '1px solid #1f1f1f',
+          background: 'var(--ink-1)', border: '1px solid var(--ink-3)',
           borderRadius: '16px', padding: '40px',
         }}>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '8px', letterSpacing: '-0.03em' }}>
             Welcome back
           </h1>
-          <p style={{ color: '#6b7280', marginBottom: '32px', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--paper-3)', marginBottom: '32px', fontSize: '0.9rem' }}>
             Sign in to manage your profile and links.
           </p>
 
@@ -72,7 +72,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+              <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
                 Email address
               </label>
               <input
@@ -86,10 +86,10 @@ export default function LoginPage() {
 
             <div style={{ marginBottom: '24px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <label style={{ fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+                <label style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
                   Password
                 </label>
-                <Link href="/auth/forgot-password" style={{ fontSize: '0.8rem', color: '#a78bfa', textDecoration: 'none' }}>
+                <Link href="/auth/forgot-password" style={{ fontSize: '0.8rem', color: 'var(--carmine-soft)', textDecoration: 'none' }}>
                   Forgot password?
                 </Link>
               </div>
@@ -113,9 +113,9 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p style={{ textAlign: 'center', marginTop: '24px', color: '#6b7280', fontSize: '0.9rem' }}>
+        <p style={{ textAlign: 'center', marginTop: '24px', color: 'var(--paper-3)', fontSize: '0.9rem' }}>
           No account?{' '}
-          <Link href="/auth/signup" style={{ color: '#a78bfa', textDecoration: 'none', fontWeight: 600 }}>
+          <Link href="/auth/signup" style={{ color: 'var(--carmine-soft)', textDecoration: 'none', fontWeight: 600 }}>
             Create one free
           </Link>
         </p>

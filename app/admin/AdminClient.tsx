@@ -214,29 +214,29 @@ export default function AdminClient({
 
   // ── Shared styles ──
 
-  const card: React.CSSProperties = { background: '#111', border: '1px solid #1f1f1f', borderRadius: '12px' };
+  const card: React.CSSProperties = { background: 'var(--ink-1)', border: '1px solid var(--ink-3)', borderRadius: '12px' };
   const tabStyle = (active: boolean): React.CSSProperties => ({
     padding: '8px 16px', borderRadius: '8px', cursor: 'pointer',
     fontSize: '0.875rem', fontWeight: 500, border: 'none',
-    background: active ? 'rgba(124, 58, 237, 0.15)' : 'transparent',
-    color: active ? '#a78bfa' : '#6b7280', transition: 'all 0.15s',
+    background: active ? 'var(--carmine-tint)' : 'transparent',
+    color: active ? 'var(--carmine-soft)' : 'var(--paper-3)', transition: 'all 0.15s',
   });
   const inputSmall: React.CSSProperties = {
-    background: '#0d0d0d', border: '1px solid #2a2a2a', borderRadius: '6px',
-    color: '#f9fafb', padding: '6px 10px', fontSize: '0.82rem', width: '100%',
+    background: 'var(--ink-1)', border: '1px solid var(--ink-3)', borderRadius: '6px',
+    color: 'var(--paper)', padding: '6px 10px', fontSize: '0.82rem', width: '100%',
   };
   const btnSm = (variant: 'purple' | 'red' | 'ghost'): React.CSSProperties => ({
     padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 600,
-    background: variant === 'purple' ? 'rgba(124,58,237,0.15)' : variant === 'red' ? 'rgba(239,68,68,0.1)' : 'transparent',
-    border: `1px solid ${variant === 'purple' ? 'rgba(124,58,237,0.4)' : variant === 'red' ? 'rgba(239,68,68,0.3)' : '#2a2a2a'}`,
-    color: variant === 'purple' ? '#a78bfa' : variant === 'red' ? '#f87171' : '#9ca3af',
+    background: variant === 'purple' ? 'var(--carmine-tint)' : variant === 'red' ? 'rgba(239,68,68,0.1)' : 'transparent',
+    border: `1px solid ${variant === 'purple' ? 'var(--carmine-glow)' : variant === 'red' ? 'rgba(239,68,68,0.3)' : 'var(--ink-3)'}`,
+    color: variant === 'purple' ? 'var(--carmine-soft)' : variant === 'red' ? '#f87171' : 'var(--paper-2)',
   });
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080808', color: '#f9fafb' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)' }}>
       {/* Header */}
       <header style={{
-        borderBottom: '1px solid #1f1f1f', padding: '0 24px', height: '60px',
+        borderBottom: '1px solid var(--ink-3)', padding: '0 24px', height: '60px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: 'rgba(8,8,8,0.95)', backdropFilter: 'blur(10px)',
         position: 'sticky', top: 0, zIndex: 40,
@@ -245,7 +245,7 @@ export default function AdminClient({
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '7px' }}>
             <div style={{
               width: '28px', height: '28px', borderRadius: '7px',
-              background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+              background: 'var(--carmine)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 800, fontSize: '14px', color: 'white',
             }}>I</div>
@@ -257,7 +257,7 @@ export default function AdminClient({
             fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.05em',
           }}>ADMIN</span>
         </div>
-        <Link href="/dashboard" style={{ color: '#6b7280', fontSize: '0.875rem', textDecoration: 'none' }}>
+        <Link href="/dashboard" style={{ color: 'var(--paper-3)', fontSize: '0.875rem', textDecoration: 'none' }}>
           ← Dashboard
         </Link>
       </header>
@@ -266,7 +266,7 @@ export default function AdminClient({
 
         <div style={{ marginBottom: '32px' }}>
           <h1 style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '4px' }}>Admin panel</h1>
-          <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>Manage users, orders, products and platform data.</p>
+          <p style={{ color: 'var(--paper-3)', fontSize: '0.875rem' }}>Manage users, orders, products and platform data.</p>
         </div>
 
         {/* Flash message */}
@@ -283,8 +283,8 @@ export default function AdminClient({
         {/* Tabs */}
         <div style={{
           display: 'flex', gap: '4px', marginBottom: '28px',
-          background: '#0d0d0d', padding: '4px', borderRadius: '10px',
-          border: '1px solid #1f1f1f', width: 'fit-content', flexWrap: 'wrap',
+          background: 'var(--ink-1)', padding: '4px', borderRadius: '10px',
+          border: '1px solid var(--ink-3)', width: 'fit-content', flexWrap: 'wrap',
         }}>
           {(['overview', 'users', 'orders', 'products'] as Tab[]).map(t => (
             <button key={t} style={tabStyle(tab === t)} onClick={() => setTab(t)}>
@@ -301,13 +301,13 @@ export default function AdminClient({
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '32px' }}>
               {[
-                { label: 'Total users',     value: stats.users,           color: '#a78bfa' },
+                { label: 'Total users',     value: stats.users,           color: 'var(--carmine-soft)' },
                 { label: 'Total orders',    value: stats.orders,          color: '#34d399' },
                 { label: 'Active links',    value: stats.activeLinks.n,   color: '#60a5fa' },
                 { label: 'Pending orders',  value: stats.pendingOrders,   color: '#f59e0b' },
               ].map(s => (
                 <div key={s.label} style={{ ...card, padding: '20px 24px' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '8px' }}>{s.label}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--paper-3)', marginBottom: '8px' }}>{s.label}</div>
                   <div style={{ fontSize: '2rem', fontWeight: 800, color: s.color }}>{s.value}</div>
                 </div>
               ))}
@@ -323,15 +323,15 @@ export default function AdminClient({
                       <span style={{ fontWeight: 600, fontSize: '0.875rem' }}>
                         {PRODUCT_LABELS[o.product_type] || o.product_type} — {o.size}{o.variant ? ` / ${o.variant}` : ''} × {o.quantity}
                       </span>
-                      <span style={{ color: '#6b7280', fontSize: '0.8rem', marginLeft: '8px' }}>by @{o.username}</span>
+                      <span style={{ color: 'var(--paper-3)', fontSize: '0.8rem', marginLeft: '8px' }}>by @{o.username}</span>
                     </div>
-                    <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--paper-3)' }}>
                       {new Date(o.created_at * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                     </span>
                     <span style={{
-                      background: `${STATUS_COLORS[o.status] || '#6b7280'}20`,
-                      border: `1px solid ${STATUS_COLORS[o.status] || '#6b7280'}50`,
-                      color: STATUS_COLORS[o.status] || '#6b7280',
+                      background: `${STATUS_COLORS[o.status] || 'var(--paper-3)'}20`,
+                      border: `1px solid ${STATUS_COLORS[o.status] || 'var(--paper-3)'}50`,
+                      color: STATUS_COLORS[o.status] || 'var(--paper-3)',
                       borderRadius: '100px', padding: '3px 10px',
                       fontSize: '0.72rem', fontWeight: 600, textTransform: 'capitalize',
                     }}>{o.status}</span>
@@ -339,7 +339,7 @@ export default function AdminClient({
                 ))}
               </div>
               {orders.length > 5 && (
-                <button onClick={() => setTab('orders')} style={{ background: 'none', border: 'none', color: '#a78bfa', cursor: 'pointer', marginTop: '10px', fontSize: '0.875rem' }}>
+                <button onClick={() => setTab('orders')} style={{ background: 'none', border: 'none', color: 'var(--carmine-soft)', cursor: 'pointer', marginTop: '10px', fontSize: '0.875rem' }}>
                   View all {orders.length} orders →
                 </button>
               )}
@@ -352,18 +352,18 @@ export default function AdminClient({
                   <div key={u.id} style={{ ...card, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     <div style={{
                       width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
-                      background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                      background: 'var(--carmine)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontWeight: 700, fontSize: '14px',
                     }}>{u.username[0].toUpperCase()}</div>
                     <div style={{ flex: 1 }}>
                       <span style={{ fontWeight: 600, fontSize: '0.875rem' }}>@{u.username}</span>
-                      <span style={{ color: '#6b7280', fontSize: '0.8rem', marginLeft: '8px' }}>{u.email}</span>
+                      <span style={{ color: 'var(--paper-3)', fontSize: '0.8rem', marginLeft: '8px' }}>{u.email}</span>
                     </div>
-                    <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--paper-3)' }}>
                       {new Date(u.created_at * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                     </span>
-                    <span style={{ fontSize: '0.75rem', color: '#4b5563' }}>{u.link_count} links · {u.order_count} orders</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--paper-4)' }}>{u.link_count} links · {u.order_count} orders</span>
                   </div>
                 ))}
               </div>
@@ -377,47 +377,47 @@ export default function AdminClient({
             <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
               <input placeholder="Search by username or email…" value={userSearch} onChange={e => setUserSearch(e.target.value)} style={{ flex: 1, minWidth: '220px' }} />
             </div>
-            <div style={{ fontSize: '0.8rem', color: '#6b7280', marginBottom: '12px' }}>{filteredUsers.length} user{filteredUsers.length !== 1 ? 's' : ''}</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--paper-3)', marginBottom: '12px' }}>{filteredUsers.length} user{filteredUsers.length !== 1 ? 's' : ''}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {filteredUsers.map(u => (
                 <div key={u.id} style={{ ...card, overflow: 'hidden' }}>
                   <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px', cursor: 'pointer', flexWrap: 'wrap' }}
                     onClick={() => setExpandedUser(expandedUser === u.id ? null : u.id)}>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0, background: u.is_admin ? 'linear-gradient(135deg, #ef4444, #f97316)' : 'linear-gradient(135deg, #7c3aed, #a78bfa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '16px' }}>{u.username[0].toUpperCase()}</div>
+                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0, background: u.is_admin ? 'linear-gradient(135deg, #ef4444, #f97316)' : 'var(--carmine)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '16px' }}>{u.username[0].toUpperCase()}</div>
                     <div style={{ flex: 1, minWidth: '160px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
                         <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>@{u.username}</span>
                         {u.is_admin ? <span style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', borderRadius: '4px', padding: '1px 6px', fontSize: '0.68rem', fontWeight: 700 }}>ADMIN</span> : null}
                       </div>
-                      <div style={{ fontSize: '0.8rem', color: '#6b7280' }}>{u.email}</div>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--paper-3)' }}>{u.email}</div>
                     </div>
-                    <div style={{ display: 'flex', gap: '16px', fontSize: '0.8rem', color: '#6b7280', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: '16px', fontSize: '0.8rem', color: 'var(--paper-3)', flexWrap: 'wrap' }}>
                       <span>{u.link_count} links</span><span>{u.order_count} orders</span>
                       <span>{new Date(u.created_at * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                     </div>
-                    <span style={{ color: '#4b5563', fontSize: '0.75rem', transition: 'transform 0.15s', transform: expandedUser === u.id ? 'rotate(180deg)' : 'none' }}>▼</span>
+                    <span style={{ color: 'var(--paper-4)', fontSize: '0.75rem', transition: 'transform 0.15s', transform: expandedUser === u.id ? 'rotate(180deg)' : 'none' }}>▼</span>
                   </div>
                   {expandedUser === u.id && (
-                    <div style={{ borderTop: '1px solid #1f1f1f', padding: '20px', background: '#0d0d0d' }}>
+                    <div style={{ borderTop: '1px solid var(--ink-3)', padding: '20px', background: 'var(--ink-1)' }}>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '20px' }}>
                         {[{ label: 'Display ID', value: `/u/${u.display_id}` }, { label: 'Bio', value: u.bio || '—' }, { label: 'WhatsApp', value: u.whatsapp_enabled && u.whatsapp_number ? `${u.whatsapp_number} (on)` : u.whatsapp_number || '—' }, { label: 'Joined', value: new Date(u.created_at * 1000).toLocaleString('en-GB') }].map(f => (
                           <div key={f.label}>
-                            <div style={{ fontSize: '0.72rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>{f.label}</div>
-                            <div style={{ fontSize: '0.85rem', color: '#d1d5db', wordBreak: 'break-all' }}>{f.value}</div>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--paper-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>{f.label}</div>
+                            <div style={{ fontSize: '0.85rem', color: 'var(--paper-2)', wordBreak: 'break-all' }}>{f.value}</div>
                           </div>
                         ))}
                       </div>
                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                        <Link href={`/u/${u.display_id}`} target="_blank" style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', background: 'transparent', border: '1px solid #2a2a2a', color: '#9ca3af', textDecoration: 'none' }}>↗ View profile</Link>
+                        <Link href={`/u/${u.display_id}`} target="_blank" style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', background: 'transparent', border: '1px solid var(--ink-3)', color: 'var(--paper-2)', textDecoration: 'none' }}>↗ View profile</Link>
                         {u.id !== currentUserId && (
                           <>
-                            <button onClick={() => toggleAdmin(u)} style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', cursor: 'pointer', background: u.is_admin ? 'rgba(239,68,68,0.1)' : 'rgba(124,58,237,0.1)', border: `1px solid ${u.is_admin ? 'rgba(239,68,68,0.3)' : 'rgba(124,58,237,0.3)'}`, color: u.is_admin ? '#f87171' : '#a78bfa' }}>
+                            <button onClick={() => toggleAdmin(u)} style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', cursor: 'pointer', background: u.is_admin ? 'rgba(239,68,68,0.1)' : 'var(--carmine-tint)', border: `1px solid ${u.is_admin ? 'rgba(239,68,68,0.3)' : 'color-mix(in oklch, var(--carmine) 30%, transparent)'}`, color: u.is_admin ? '#f87171' : 'var(--carmine-soft)' }}>
                               {u.is_admin ? 'Remove admin' : 'Make admin'}
                             </button>
                             <button onClick={() => deleteUser(u.id, u.username)} style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', cursor: 'pointer', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', color: '#f87171' }}>Delete user</button>
                           </>
                         )}
-                        {u.id === currentUserId && <span style={{ fontSize: '0.75rem', color: '#4b5563', alignSelf: 'center' }}>— that&apos;s you</span>}
+                        {u.id === currentUserId && <span style={{ fontSize: '0.75rem', color: 'var(--paper-4)', alignSelf: 'center' }}>— that&apos;s you</span>}
                       </div>
                     </div>
                   )}
@@ -437,7 +437,7 @@ export default function AdminClient({
                 {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
               </select>
             </div>
-            <div style={{ fontSize: '0.8rem', color: '#6b7280', marginBottom: '12px' }}>{filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--paper-3)', marginBottom: '12px' }}>{filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {filteredOrders.map(o => (
                 <div key={o.id} style={{ ...card, overflow: 'hidden' }}>
@@ -445,21 +445,21 @@ export default function AdminClient({
                     <span style={{ fontSize: '1.3rem' }}>{PRODUCT_ICONS[o.product_type] || '◎'}</span>
                     <div style={{ flex: 1, minWidth: '160px' }}>
                       <div style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: '2px' }}>#{o.id} — {PRODUCT_LABELS[o.product_type] || o.product_type} {o.size}{o.variant ? ` / ${o.variant}` : ''} × {o.quantity}</div>
-                      <div style={{ fontSize: '0.78rem', color: '#6b7280' }}>@{o.username} · {o.email}</div>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--paper-3)' }}>@{o.username} · {o.email}</div>
                     </div>
-                    <span style={{ fontSize: '0.78rem', color: '#6b7280' }}>{new Date(o.created_at * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                    <select value={o.status} onChange={e => { e.stopPropagation(); updateOrderStatus(o.id, e.target.value); }} onClick={e => e.stopPropagation()} style={{ background: `${STATUS_COLORS[o.status] || '#6b7280'}18`, border: `1px solid ${STATUS_COLORS[o.status] || '#6b7280'}50`, color: STATUS_COLORS[o.status] || '#6b7280', borderRadius: '8px', padding: '5px 10px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', width: 'auto' }}>
-                      {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: '#111', color: '#f9fafb' }}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
+                    <span style={{ fontSize: '0.78rem', color: 'var(--paper-3)' }}>{new Date(o.created_at * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    <select value={o.status} onChange={e => { e.stopPropagation(); updateOrderStatus(o.id, e.target.value); }} onClick={e => e.stopPropagation()} style={{ background: `${STATUS_COLORS[o.status] || 'var(--paper-3)'}18`, border: `1px solid ${STATUS_COLORS[o.status] || 'var(--paper-3)'}50`, color: STATUS_COLORS[o.status] || 'var(--paper-3)', borderRadius: '8px', padding: '5px 10px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', width: 'auto' }}>
+                      {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: 'var(--ink-1)', color: 'var(--paper)' }}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
                     </select>
-                    <span style={{ color: '#4b5563', fontSize: '0.75rem' }}>▼</span>
+                    <span style={{ color: 'var(--paper-4)', fontSize: '0.75rem' }}>▼</span>
                   </div>
                   {expandedOrder === o.id && (
-                    <div style={{ borderTop: '1px solid #1f1f1f', padding: '20px', background: '#0d0d0d' }}>
+                    <div style={{ borderTop: '1px solid var(--ink-3)', padding: '20px', background: 'var(--ink-1)' }}>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
                         {[{ label: 'Customer', value: `@${o.username} (${o.email})` }, { label: 'Product', value: `${PRODUCT_LABELS[o.product_type] || o.product_type} · ${o.size}${o.variant ? ' / ' + o.variant : ''} · qty ${o.quantity}` }, { label: 'Address', value: [o.address_line1, o.address_line2, o.city, o.postcode, o.country].filter(Boolean).join(', ') }, { label: 'Ordered', value: new Date(o.created_at * 1000).toLocaleString('en-GB') }].map(f => (
                           <div key={f.label}>
-                            <div style={{ fontSize: '0.72rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>{f.label}</div>
-                            <div style={{ fontSize: '0.85rem', color: '#d1d5db' }}>{f.value}</div>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--paper-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>{f.label}</div>
+                            <div style={{ fontSize: '0.85rem', color: 'var(--paper-2)' }}>{f.value}</div>
                           </div>
                         ))}
                       </div>
@@ -475,7 +475,7 @@ export default function AdminClient({
         {tab === 'products' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
-              <p style={{ color: '#6b7280', fontSize: '0.875rem', margin: 0 }}>
+              <p style={{ color: 'var(--paper-3)', fontSize: '0.875rem', margin: 0 }}>
                 Changes take effect immediately for new orders.
               </p>
               <button onClick={() => { setShowAddProduct(!showAddProduct); setEditingProduct(null); }} style={{ ...btnSm('purple'), padding: '8px 16px', fontSize: '0.85rem' }}>
@@ -485,34 +485,34 @@ export default function AdminClient({
 
             {/* ── Add product form ── */}
             {showAddProduct && (
-              <div style={{ ...card, padding: '24px', marginBottom: '24px', borderColor: 'rgba(124,58,237,0.3)' }}>
-                <h3 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px', color: '#a78bfa' }}>New product</h3>
+              <div style={{ ...card, padding: '24px', marginBottom: '24px', borderColor: 'color-mix(in oklch, var(--carmine) 30%, transparent)' }}>
+                <h3 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px', color: 'var(--carmine-soft)' }}>New product</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '12px' }}>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     ID (lowercase, no spaces) *
                     <input style={inputSmall} placeholder="e.g. hoodie" value={newProduct.id} onChange={e => setNewProduct(p => ({ ...p, id: e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g,'') }))} />
                   </label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     Name *
                     <input style={inputSmall} placeholder="e.g. Hoodie" value={newProduct.name} onChange={e => setNewProduct(p => ({ ...p, name: e.target.value }))} />
                   </label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     Tagline
                     <input style={inputSmall} placeholder="One-line description" value={newProduct.tagline} onChange={e => setNewProduct(p => ({ ...p, tagline: e.target.value }))} />
                   </label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     Icon (emoji)
                     <input style={inputSmall} placeholder="e.g. 🧥" value={newProduct.icon_type} onChange={e => setNewProduct(p => ({ ...p, icon_type: e.target.value }))} />
                   </label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     Option label
                     <input style={inputSmall} placeholder="Size" value={newProduct.option_label} onChange={e => setNewProduct(p => ({ ...p, option_label: e.target.value }))} />
                   </label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     Prodigi SKU
                     <input style={inputSmall} placeholder="e.g. GLOBAL-MUG" value={newProduct.prodigi_sku} onChange={e => setNewProduct(p => ({ ...p, prodigi_sku: e.target.value }))} />
                   </label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                     Print location
                     <input style={inputSmall} placeholder="default" value={newProduct.prodigi_print_location} onChange={e => setNewProduct(p => ({ ...p, prodigi_print_location: e.target.value }))} />
                   </label>
@@ -539,10 +539,10 @@ export default function AdminClient({
                       <div style={{ flex: 1, minWidth: '160px', cursor: 'pointer' }} onClick={() => setExpandedProduct(isExpanded ? null : p.id)}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
                           <span style={{ fontWeight: 700 }}>{p.name}</span>
-                          <span style={{ fontSize: '0.7rem', color: '#4b5563', fontFamily: 'monospace' }}>{p.id}</span>
+                          <span style={{ fontSize: '0.7rem', color: 'var(--paper-4)', fontFamily: 'monospace' }}>{p.id}</span>
                           {!p.enabled && <span style={{ fontSize: '0.68rem', background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', borderRadius: '4px', padding: '1px 6px', fontWeight: 700 }}>HIDDEN</span>}
                         </div>
-                        <div style={{ fontSize: '0.8rem', color: '#6b7280' }}>{p.tagline || '—'} · {opts.length} option{opts.length !== 1 ? 's' : ''} · from £{opts.length ? (Math.min(...opts.map(o => o.price_pence)) / 100).toFixed(2) : '?'}</div>
+                        <div style={{ fontSize: '0.8rem', color: 'var(--paper-3)' }}>{p.tagline || '—'} · {opts.length} option{opts.length !== 1 ? 's' : ''} · from £{opts.length ? (Math.min(...opts.map(o => o.price_pence)) / 100).toFixed(2) : '?'}</div>
                       </div>
                       <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                         <button onClick={() => { setEditingProduct(isEditingP ? null : p.id); setEditProductValues({ name: p.name, tagline: p.tagline, option_label: p.option_label, has_colour: p.has_colour, prodigi_sku: p.prodigi_sku, prodigi_print_location: p.prodigi_print_location, enabled: p.enabled }); setExpandedProduct(p.id); }} style={btnSm('ghost')}>
@@ -560,18 +560,18 @@ export default function AdminClient({
 
                     {/* Expanded section */}
                     {isExpanded && (
-                      <div style={{ borderTop: '1px solid #1f1f1f', background: '#0d0d0d', padding: '20px' }}>
+                      <div style={{ borderTop: '1px solid var(--ink-3)', background: 'var(--ink-1)', padding: '20px' }}>
 
                         {/* Edit product fields */}
                         {isEditingP && (
-                          <div style={{ marginBottom: '24px', padding: '16px', background: '#111', borderRadius: '8px', border: '1px solid rgba(124,58,237,0.2)' }}>
-                            <div style={{ fontSize: '0.78rem', color: '#a78bfa', fontWeight: 700, marginBottom: '12px' }}>Edit product</div>
+                          <div style={{ marginBottom: '24px', padding: '16px', background: 'var(--ink-1)', borderRadius: '8px', border: '1px solid var(--carmine-tint)' }}>
+                            <div style={{ fontSize: '0.78rem', color: 'var(--carmine-soft)', fontWeight: 700, marginBottom: '12px' }}>Edit product</div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px', marginBottom: '12px' }}>
                               {([
                                 ['name', 'Name *'], ['tagline', 'Tagline'], ['option_label', 'Option label'],
                                 ['prodigi_sku', 'Prodigi SKU'], ['prodigi_print_location', 'Print location'],
                               ] as [keyof AdminProduct, string][]).map(([field, label]) => (
-                                <label key={field} style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                                <label key={field} style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                                   {label}
                                   <input style={inputSmall} value={String(editProductValues[field] ?? '')} onChange={e => setEditProductValues(v => ({ ...v, [field]: e.target.value }))} />
                                 </label>
@@ -585,7 +585,7 @@ export default function AdminClient({
                         )}
 
                         {/* Options list */}
-                        <div style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '10px' }}>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--paper-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '10px' }}>
                           {p.option_label} options
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
@@ -593,23 +593,23 @@ export default function AdminClient({
                             const key = `${p.id}:${opt.id}`;
                             const isEditingOpt = editingOption === key;
                             return (
-                              <div key={opt.id} style={{ background: '#111', borderRadius: '8px', border: '1px solid #1f1f1f', padding: '12px 16px' }}>
+                              <div key={opt.id} style={{ background: 'var(--ink-1)', borderRadius: '8px', border: '1px solid var(--ink-3)', padding: '12px 16px' }}>
                                 {isEditingOpt ? (
                                   <div>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '8px', marginBottom: '10px' }}>
-                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                         Label
                                         <input style={inputSmall} value={editOptionValues.label} onChange={e => setEditOptionValues(v => ({ ...v, label: e.target.value }))} />
                                       </label>
-                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                         Detail
                                         <input style={inputSmall} value={editOptionValues.detail} onChange={e => setEditOptionValues(v => ({ ...v, detail: e.target.value }))} />
                                       </label>
-                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                         Price (£)
                                         <input style={inputSmall} type="number" step="0.01" min="0" value={editOptionValues.price} onChange={e => setEditOptionValues(v => ({ ...v, price: e.target.value }))} />
                                       </label>
-                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                                      <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                         Prodigi SKU override
                                         <input style={inputSmall} value={editOptionValues.prodigi_sku} onChange={e => setEditOptionValues(v => ({ ...v, prodigi_sku: e.target.value }))} />
                                       </label>
@@ -621,10 +621,10 @@ export default function AdminClient({
                                   </div>
                                 ) : (
                                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                                    <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#6b7280', minWidth: '70px' }}>{opt.id}</span>
+                                    <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: 'var(--paper-3)', minWidth: '70px' }}>{opt.id}</span>
                                     <span style={{ fontWeight: 600, fontSize: '0.875rem', flex: 1 }}>{opt.label}</span>
-                                    {opt.detail && <span style={{ fontSize: '0.78rem', color: '#6b7280' }}>{opt.detail}</span>}
-                                    <span style={{ fontWeight: 700, color: '#a78bfa', minWidth: '56px', textAlign: 'right' }}>£{(opt.price_pence / 100).toFixed(2)}</span>
+                                    {opt.detail && <span style={{ fontSize: '0.78rem', color: 'var(--paper-3)' }}>{opt.detail}</span>}
+                                    <span style={{ fontWeight: 700, color: 'var(--carmine-soft)', minWidth: '56px', textAlign: 'right' }}>£{(opt.price_pence / 100).toFixed(2)}</span>
                                     <div style={{ display: 'flex', gap: '4px' }}>
                                       <button onClick={() => { setEditingOption(key); setEditOptionValues({ label: opt.label, detail: opt.detail, price: (opt.price_pence / 100).toFixed(2), prodigi_sku: opt.prodigi_sku }); }} style={btnSm('ghost')}>Edit</button>
                                       <button onClick={() => deleteOption(p.id, opt.id)} style={btnSm('red')}>×</button>
@@ -638,26 +638,26 @@ export default function AdminClient({
 
                         {/* Add option form */}
                         {showAddOption === p.id ? (
-                          <div style={{ background: '#111', borderRadius: '8px', border: '1px solid rgba(124,58,237,0.2)', padding: '14px', marginBottom: '8px' }}>
-                            <div style={{ fontSize: '0.75rem', color: '#a78bfa', fontWeight: 700, marginBottom: '10px' }}>Add option</div>
+                          <div style={{ background: 'var(--ink-1)', borderRadius: '8px', border: '1px solid var(--carmine-tint)', padding: '14px', marginBottom: '8px' }}>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--carmine-soft)', fontWeight: 700, marginBottom: '10px' }}>Add option</div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '8px', marginBottom: '10px' }}>
-                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                 ID *
                                 <input style={inputSmall} placeholder="e.g. L" value={newOption.id} onChange={e => setNewOption(o => ({ ...o, id: e.target.value }))} />
                               </label>
-                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                 Label *
                                 <input style={inputSmall} placeholder="e.g. Large" value={newOption.label} onChange={e => setNewOption(o => ({ ...o, label: e.target.value }))} />
                               </label>
-                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                 Detail
                                 <input style={inputSmall} placeholder="e.g. Chest 41–43&quot;" value={newOption.detail} onChange={e => setNewOption(o => ({ ...o, detail: e.target.value }))} />
                               </label>
-                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                 Price (£) *
                                 <input style={inputSmall} type="number" step="0.01" min="0" placeholder="0.00" value={newOption.price} onChange={e => setNewOption(o => ({ ...o, price: e.target.value }))} />
                               </label>
-                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: '#9ca3af' }}>
+                              <label style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.75rem', color: 'var(--paper-2)' }}>
                                 Prodigi SKU override
                                 <input style={inputSmall} placeholder="leave blank to inherit" value={newOption.prodigi_sku} onChange={e => setNewOption(o => ({ ...o, prodigi_sku: e.target.value }))} />
                               </label>
@@ -675,11 +675,11 @@ export default function AdminClient({
 
                         {/* Colours info */}
                         {!!p.has_colour && (
-                          <div style={{ marginTop: '16px', padding: '10px 14px', background: '#111', borderRadius: '8px', border: '1px solid #1a1a1a' }}>
-                            <div style={{ fontSize: '0.72rem', color: '#6b7280', marginBottom: '6px' }}>Colours (edit via database — colours support coming soon)</div>
+                          <div style={{ marginTop: '16px', padding: '10px 14px', background: 'var(--ink-1)', borderRadius: '8px', border: '1px solid var(--ink-2)' }}>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--paper-3)', marginBottom: '6px' }}>Colours (edit via database — colours support coming soon)</div>
                             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                               {productColours.filter(c => c.product_id === p.id).map(c => (
-                                <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.78rem', color: '#9ca3af' }}>
+                                <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.78rem', color: 'var(--paper-2)' }}>
                                   <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: c.hex, border: '1px solid #3a3a3a', flexShrink: 0 }} />
                                   {c.label}
                                 </div>

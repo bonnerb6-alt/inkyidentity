@@ -31,18 +31,19 @@ export async function POST(req: NextRequest) {
     to: email,
     subject: 'Reset your InkyIdentity password',
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #080808; color: #f9fafb; border-radius: 12px;">
-        <div style="margin-bottom: 24px;">
-          <span style="background: linear-gradient(135deg, #7c3aed, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.4rem; font-weight: 800;">InkyIdentity</span>
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 36px; background: #0f0f17; color: #f5f3ef; border-radius: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 28px;">
+          <span style="display: inline-block; width: 26px; height: 26px; border-radius: 7px; background: #d6354b; color: #f5f3ef; text-align: center; line-height: 26px; font-weight: 800;">I</span>
+          <span style="color: #f5f3ef; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em;">InkyIdentity</span>
         </div>
-        <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; color: #f9fafb;">Reset your password</h1>
-        <p style="color: #9ca3af; line-height: 1.6; margin-bottom: 24px;">
+        <h1 style="font-size: 1.5rem; font-weight: 700; margin: 0 0 12px; color: #f5f3ef; letter-spacing: -0.02em;">Reset your password</h1>
+        <p style="color: #cfccc7; line-height: 1.6; margin: 0 0 28px;">
           Hi ${user.username}, click the button below to reset your password. This link expires in 1 hour.
         </p>
-        <a href="${resetUrl}" style="display: inline-block; background: #7c3aed; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; margin-bottom: 24px;">
+        <a href="${resetUrl}" style="display: inline-block; background: #d6354b; color: #f5f3ef; text-decoration: none; padding: 13px 26px; border-radius: 10px; font-weight: 600; margin-bottom: 28px;">
           Reset password
         </a>
-        <p style="color: #6b7280; font-size: 0.8rem;">
+        <p style="color: #85838f; font-size: 0.82rem; line-height: 1.6;">
           If you didn't request this, you can ignore this email. Your password won't change.
         </p>
       </div>

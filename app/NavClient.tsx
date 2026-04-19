@@ -11,22 +11,27 @@ export default function NavClient({ isLoggedIn }: { isLoggedIn: boolean }) {
         padding: '0 24px', height: '64px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         position: 'sticky', top: 0, zIndex: 100,
-        background: 'rgba(8,8,8,0.85)', backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        background: 'color-mix(in oklch, var(--ink-0) 82%, transparent)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: '1px solid var(--ink-3)',
       }}>
-        {/* Logo */}
         <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            width: '34px', height: '34px', borderRadius: '9px',
-            background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+            width: '32px', height: '32px', borderRadius: '8px',
+            background: 'var(--carmine)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 800, fontSize: '17px', color: 'white',
-            boxShadow: '0 0 20px rgba(124,58,237,0.6)', flexShrink: 0,
+            fontFamily: 'var(--font-display-stack)',
+            fontWeight: 800, fontSize: '17px', color: 'var(--paper)',
+            letterSpacing: '-0.04em',
+            flexShrink: 0,
           }}>I</div>
-          <span style={{ fontWeight: 700, fontSize: '18px', letterSpacing: '-0.02em', color: '#f9fafb' }}>InkyIdentity</span>
+          <span style={{
+            fontFamily: 'var(--font-display-stack)',
+            fontWeight: 700, fontSize: '17px', letterSpacing: '-0.025em', color: 'var(--paper)',
+          }}>InkyIdentity</span>
         </Link>
 
-        {/* Desktop buttons */}
         <div className="nav-desktop" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           {isLoggedIn ? (
             <Link href="/dashboard" className="btn-primary" style={{ textDecoration: 'none' }}>Dashboard</Link>
@@ -38,14 +43,13 @@ export default function NavClient({ isLoggedIn }: { isLoggedIn: boolean }) {
           )}
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="nav-mobile"
           onClick={() => setOpen(o => !o)}
           aria-label="Menu"
           style={{
-            background: 'transparent', border: '1px solid #2a2a2a', borderRadius: '8px',
-            width: '40px', height: '40px', cursor: 'pointer', color: '#f9fafb',
+            background: 'transparent', border: '1px solid var(--ink-3)', borderRadius: '8px',
+            width: '40px', height: '40px', cursor: 'pointer', color: 'var(--paper)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
           }}
         >
@@ -61,12 +65,13 @@ export default function NavClient({ isLoggedIn }: { isLoggedIn: boolean }) {
         </button>
       </nav>
 
-      {/* Mobile dropdown */}
       {open && (
         <div className="nav-mobile" style={{
           position: 'fixed', top: '64px', left: 0, right: 0,
-          background: 'rgba(10,10,10,0.98)', backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid #1f1f1f',
+          background: 'color-mix(in oklch, var(--ink-0) 96%, transparent)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid var(--ink-3)',
           padding: '20px 24px', zIndex: 99,
           display: 'flex', flexDirection: 'column', gap: '12px',
         }}>
@@ -84,8 +89,8 @@ export default function NavClient({ isLoggedIn }: { isLoggedIn: boolean }) {
               </Link>
             </>
           )}
-          <div style={{ borderTop: '1px solid #1a1a1a', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <a href="#how" style={{ color: '#9ca3af', textDecoration: 'none', fontSize: '0.95rem' }} onClick={() => setOpen(false)}>How it works</a>
+          <div style={{ borderTop: '1px solid var(--ink-3)', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <a href="#how" style={{ color: 'var(--paper-2)', textDecoration: 'none', fontSize: '0.95rem' }} onClick={() => setOpen(false)}>How it works</a>
           </div>
         </div>
       )}

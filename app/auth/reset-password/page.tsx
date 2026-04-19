@@ -42,7 +42,7 @@ function ResetForm() {
     return (
       <div style={{ textAlign: 'center' }}>
         <p style={{ color: '#f87171' }}>Invalid reset link.</p>
-        <Link href="/auth/forgot-password" style={{ color: '#a78bfa', marginTop: '12px', display: 'inline-block' }}>
+        <Link href="/auth/forgot-password" style={{ color: 'var(--carmine-soft)', marginTop: '12px', display: 'inline-block' }}>
           Request a new one
         </Link>
       </div>
@@ -56,7 +56,7 @@ function ResetForm() {
     }}>
       <div style={{ fontSize: '2rem', marginBottom: '12px' }}>✓</div>
       <p style={{ color: '#6ee7b7', fontWeight: 600, marginBottom: '8px' }}>Password updated!</p>
-      <p style={{ color: '#9ca3af', fontSize: '0.875rem' }}>Redirecting you to login…</p>
+      <p style={{ color: 'var(--paper-2)', fontSize: '0.875rem' }}>Redirecting you to login…</p>
     </div>
   ) : (
     <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -67,7 +67,7 @@ function ResetForm() {
         }}>{error}</div>
       )}
       <div>
-        <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+        <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
           New password
         </label>
         <input
@@ -80,7 +80,7 @@ function ResetForm() {
         />
       </div>
       <div>
-        <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: '#d1d5db' }}>
+        <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.875rem', fontWeight: 500, color: 'var(--paper-2)' }}>
           Confirm password
         </label>
         <input
@@ -107,14 +107,14 @@ function ResetForm() {
 export default function ResetPasswordPage() {
   return (
     <div style={{
-      minHeight: '100vh', background: '#080808', color: '#f9fafb',
+      minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px',
     }}>
       <div style={{ width: '100%', maxWidth: '400px' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{
             width: '48px', height: '48px', borderRadius: '12px', margin: '0 auto 16px',
-            background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+            background: 'var(--carmine)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 800, fontSize: '22px', color: 'white',
           }}>I</div>
@@ -122,7 +122,7 @@ export default function ResetPasswordPage() {
             Set new password
           </h1>
         </div>
-        <Suspense fallback={<p style={{ color: '#6b7280', textAlign: 'center' }}>Loading…</p>}>
+        <Suspense fallback={<p style={{ color: 'var(--paper-3)', textAlign: 'center' }}>Loading…</p>}>
           <ResetForm />
         </Suspense>
       </div>

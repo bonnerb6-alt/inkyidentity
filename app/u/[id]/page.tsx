@@ -46,21 +46,21 @@ export default async function ProfilePage({ params }: Props) {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background: #111;
-          border: 1px solid #1f1f1f;
+          background: var(--ink-1);
+          border: 1px solid var(--ink-3);
           border-radius: 12px;
           padding: 16px 20px;
           text-decoration: none;
-          color: #f9fafb;
+          color: var(--paper);
           transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.15s;
           font-weight: 600;
           font-size: 0.95rem;
         }
         .profile-link:hover {
-          border-color: #7c3aed;
-          background: #141414;
+          border-color: var(--carmine);
+          background: var(--ink-1);
           transform: translateY(-2px);
-          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+          box-shadow: 0 4px 20px var(--carmine-tint);
         }
         .whatsapp-btn:hover {
           background: rgba(37, 211, 102, 0.2);
@@ -69,7 +69,7 @@ export default async function ProfilePage({ params }: Props) {
         }
       `}</style>
       <div style={{
-        minHeight: '100vh', background: '#080808', color: '#f9fafb',
+        minHeight: '100vh', background: 'var(--ink-0)', color: 'var(--paper)',
         display: 'flex', flexDirection: 'column', alignItems: 'center',
         padding: '60px 16px 80px',
       }}>
@@ -83,15 +83,15 @@ export default async function ProfilePage({ params }: Props) {
                 alt={user.username}
                 width={88}
                 height={88}
-                style={{ borderRadius: '50%', objectFit: 'cover', border: '3px solid #7c3aed' }}
+                style={{ borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--carmine)' }}
               />
             ) : (
               <div style={{
                 width: '88px', height: '88px', borderRadius: '50%',
-                background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                background: 'var(--carmine)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '2rem', fontWeight: 800, margin: '0 auto',
-                boxShadow: '0 0 30px rgba(124, 58, 237, 0.4)',
+                boxShadow: '0 0 30px var(--carmine-glow)',
               }}>
                 {initial}
               </div>
@@ -106,7 +106,7 @@ export default async function ProfilePage({ params }: Props) {
 
             {user.bio && (
               <p style={{
-                color: '#9ca3af', fontSize: '0.95rem', lineHeight: 1.6,
+                color: 'var(--paper-2)', fontSize: '0.95rem', lineHeight: 1.6,
                 maxWidth: '360px', margin: '0 auto',
               }}>
                 {user.bio}
@@ -125,7 +125,7 @@ export default async function ProfilePage({ params }: Props) {
                 background: 'rgba(37, 211, 102, 0.12)',
                 border: '1.5px solid rgba(37, 211, 102, 0.35)',
                 borderRadius: '12px', padding: '14px 20px',
-                textDecoration: 'none', color: '#f9fafb',
+                textDecoration: 'none', color: 'var(--paper)',
                 fontWeight: 700, fontSize: '0.95rem',
                 marginBottom: '20px',
                 transition: 'background 0.2s, border-color 0.2s, transform 0.15s',
@@ -142,8 +142,8 @@ export default async function ProfilePage({ params }: Props) {
           {/* Links */}
           {links.length === 0 ? (
             <div style={{
-              textAlign: 'center', color: '#4b5563', padding: '40px',
-              background: '#111', borderRadius: '12px', border: '1px solid #1f1f1f',
+              textAlign: 'center', color: 'var(--paper-4)', padding: '40px',
+              background: 'var(--ink-1)', borderRadius: '12px', border: '1px solid var(--ink-3)',
             }}>
               No links added yet.
             </div>
@@ -161,7 +161,7 @@ export default async function ProfilePage({ params }: Props) {
                     <PlatformIcon platformId={link.icon || 'website'} size={18} />
                     {link.title}
                   </span>
-                  <span style={{ color: '#7c3aed', fontSize: '1rem' }}>↗</span>
+                  <span style={{ color: 'var(--carmine)', fontSize: '1rem' }}>↗</span>
                 </a>
               ))}
             </div>
@@ -171,11 +171,11 @@ export default async function ProfilePage({ params }: Props) {
           <div style={{ textAlign: 'center', marginTop: '48px' }}>
             <Link href="/" style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              textDecoration: 'none', color: '#4b5563', fontSize: '0.8rem',
+              textDecoration: 'none', color: 'var(--paper-4)', fontSize: '0.8rem',
             }}>
               <div style={{
                 width: '18px', height: '18px', borderRadius: '4px',
-                background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                background: 'var(--carmine)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontWeight: 700, fontSize: '10px', color: 'white',
               }}>I</div>
