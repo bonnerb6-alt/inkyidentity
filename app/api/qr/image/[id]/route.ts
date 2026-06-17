@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import QRCode from 'qrcode';
 import sharp from 'sharp';
+import { getQRBuffer, qrTargetUrl } from '@/lib/qr';
 
 /**
  * Public endpoint that returns the QR code as a PNG image with
@@ -13,7 +13,7 @@ export async function GET(
 ) {
   const { id } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://inkyidentity.com';
-  const url = `${baseUrl}/u/${id}`;
+  const url = qrTargetUrl(id, baseUrl);
 
   const QR_SIZE = 1100;
   const PADDING = 40;
@@ -22,13 +22,8 @@ export async function GET(
   const TOTAL_HEIGHT = QR_SIZE + PADDING * 2 + TEXT_HEIGHT;
   const FONT_SIZE = 48;
 
-  // Generate QR code as PNG buffer
-  const qrBuffer = await QRCode.toBuffer(url, {
-    errorCorrectionLevel: 'H',
-    margin: 2,
-    width: QR_SIZE,
-    color: { dark: '#000000', light: '#ffffff' },
-  });
+  // Generate QR code as PNG buffer using the canonical tattoo-tuned settings
+  const qrBuffer = await getQRBuffer(url, QR_SIZE);
 
   // Build SVG with QR image embedded + text below
   const qrBase64 = qrBuffer.toString('base64');

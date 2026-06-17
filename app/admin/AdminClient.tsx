@@ -100,6 +100,35 @@ export default function AdminClient({
     else { const d = await res.json(); flash(d.error, 'err'); }
   }
 
+  const [regenBusy, setRegenBusy] = useState<string | null>(null); // displayId | 'all'
+
+  async function regenerateQR(displayId: string, username: string) {
+    setRegenBusy(displayId);
+    try {
+      const res = await fetch('/api/admin/qr', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ displayId }),
+      });
+      const data = await res.json();
+      if (res.ok) flash(`QR code for @${username} regenerated with latest settings`);
+      else flash(data.error || 'Failed to regenerate', 'err');
+    } finally { setRegenBusy(null); }
+  }
+
+  async function regenerateAllQR() {
+    if (!confirm('Regenerate every QR code with the latest generation settings? This rebuilds the cache for all users.')) return;
+    setRegenBusy('all');
+    try {
+      const res = await fetch('/api/admin/qr', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ all: true }),
+      });
+      const data = await res.json();
+      if (res.ok) flash(`Regenerated ${data.regenerated} QR code${data.regenerated !== 1 ? 's' : ''}`);
+      else flash(data.error || 'Failed to regenerate', 'err');
+    } finally { setRegenBusy(null); }
+  }
+
   async function toggleAdmin(user: AdminUser) {
     const res = await fetch('/api/admin/users', {
       method: 'PATCH', headers: { 'Content-Type': 'application/json' },
@@ -374,8 +403,11 @@ export default function AdminClient({
         {/* ── USERS ── */}
         {tab === 'users' && (
           <div>
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
               <input placeholder="Search by username or email…" value={userSearch} onChange={e => setUserSearch(e.target.value)} style={{ flex: 1, minWidth: '220px' }} />
+              <button onClick={regenerateAllQR} disabled={regenBusy === 'all'} style={{ ...btnSm('purple'), padding: '8px 16px', fontSize: '0.85rem', opacity: regenBusy === 'all' ? 0.6 : 1 }}>
+                {regenBusy === 'all' ? 'Regenerating…' : '⟳ Regenerate all QR codes'}
+              </button>
             </div>
             <div style={{ fontSize: '0.8rem', color: 'var(--paper-3)', marginBottom: '12px' }}>{filteredUsers.length} user{filteredUsers.length !== 1 ? 's' : ''}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -409,6 +441,9 @@ export default function AdminClient({
                       </div>
                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                         <Link href={`/u/${u.display_id}`} target="_blank" style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', background: 'transparent', border: '1px solid var(--ink-3)', color: 'var(--paper-2)', textDecoration: 'none' }}>↗ View profile</Link>
+                        <button onClick={() => regenerateQR(u.display_id, u.username)} disabled={regenBusy === u.display_id} style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', cursor: 'pointer', background: 'var(--carmine-tint)', border: '1px solid color-mix(in oklch, var(--carmine) 30%, transparent)', color: 'var(--carmine-soft)', opacity: regenBusy === u.display_id ? 0.6 : 1 }}>
+                          {regenBusy === u.display_id ? 'Regenerating…' : '⟳ Regenerate QR'}
+                        </button>
                         {u.id !== currentUserId && (
                           <>
                             <button onClick={() => toggleAdmin(u)} style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '0.8rem', cursor: 'pointer', background: u.is_admin ? 'rgba(239,68,68,0.1)' : 'var(--carmine-tint)', border: `1px solid ${u.is_admin ? 'rgba(239,68,68,0.3)' : 'color-mix(in oklch, var(--carmine) 30%, transparent)'}`, color: u.is_admin ? '#f87171' : 'var(--carmine-soft)' }}>
